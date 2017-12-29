@@ -19,6 +19,9 @@ public:
         // write your code here
         vector<Interval> ret;
         sort(intervals.begin(), intervals.end(), compare);
+        // 在这里添加一个[+∞，+∞]区间，这样我们就可以将整个循环统一起来
+        // 无论最后一个区间是不是一个新的独立区间，当遇到[+∞，+∞]时都会被
+        // 分离开来，而我们的循环恰好是到n-1终止。
         intervals.push_back(Interval(INT_MAX, INT_MAX));
         int start = intervals[0].start;
         int end = intervals[0].end;
