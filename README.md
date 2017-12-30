@@ -50,4 +50,6 @@
 ### [39恢复旋转排序数组](http://www.lintcode.com/zh-cn/problem/recover-rotated-sorted-array/)
 1. 最暴力的思路就是找出旋转基rotate，然后拷贝一个新数组，然后拷贝。
 2. 参考了别人的思路，旋转，从[0,rotate] 和 [rotata,n] 和 [0,n]旋转三次即可。
-
+### [41最大子数组](http://www.lintcode.com/zh-cn/problem/maximum-subarray/)
+1. 使用两个变量max和d，max保存的是到当前遍历的地方为止最大的子数组之和，对于d来说就是保存的从某个位置开始的子数组之和。
+2. 每次加一个元素或者重新开始一个区间，都要更新max
