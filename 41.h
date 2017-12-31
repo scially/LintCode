@@ -10,7 +10,6 @@ public:
         for(int i = 1; i < nums.size(); i++){
             if(d + nums[i] < nums[i]){ 
                 //一个新的区间，可改为if(d<0)
-                //
                 d = nums[i];
             }
             else{
