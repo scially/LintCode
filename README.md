@@ -51,8 +51,13 @@
 1. 最暴力的思路就是找出旋转基rotate，然后拷贝一个新数组，然后拷贝。
 2. 参考了别人的思路，旋转，从[0,rotate] 和 [rotata,n] 和 [0,n]旋转三次即可。
 ### [41最大子数组](http://www.lintcode.com/zh-cn/problem/maximum-subarray/)
-1. 使用两个变量max和d，max保存的是到当前遍历的地方为止最大的子数组之和，对于d来说就是保存的从某个位置开始的子数组之和，当这个d小于0的时候就直接舍弃。
+1. 使用两个变量max和d，max保存的是到当前遍历的地方为止最大的子数组之和，对于d来说就是保存的从某个位置开始的子数组之和，当这个d小于0的时候，不管下一个数是正是负，这个d都会“拖累”下一个数，所以直接舍弃。
 2. 实际上这里的每一步的max都是到当前i为止的一个局部最大值。
 ### [42最大子数组II](http://www.lintcode.com/zh-cn/problem/maximum-subarray-ii/)
 1. 利用41最大子数组中的第二点，前后遍历两次，分别将到i前后最大值分别存在两个数组中
 2. 对最后的结果进行一次遍历，找出最大值即可。
+### [44最小子数组](http://www.lintcode.com/zh-cn/problem/minimum-subarray/)
+1. 和41最大子数组思路完全一样。
+### [45最大子数组差](http://www.lintcode.com/zh-cn/problem/maximum-subarray-difference/)
+1. 和42最大子数组II思路一样
+2. 要注意不一定是左边数组最大而右边数组最小，结果可能在反过来的情况中，所以要都考虑到。
