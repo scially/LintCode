@@ -20,13 +20,24 @@ public:
         // else return r;
         
         //verson2
-		int left = 0, right = A.size();
-		while (left < right) {
-			int mid = left + (right - left) / 2;
-			if (A[mid] == target) return mid;
-			else if (A[mid] < target) left = mid + 1;
-			else right = mid;
-		}
-		return right;
+		// int left = 0, right = A.size();
+		// while (left < right) {
+		// 	int mid = left + (right - left) / 2;
+		// 	if (A[mid] == target) return mid;
+		// 	else if (A[mid] < target) left = mid + 1;
+		// 	else right = mid;
+		// }
+		// return right;
+
+        //version3 by wangpei
+        int low=0, high=A.size()-1,mid;
+        while(low<=high)
+        {
+            mid=(low+high)/2;
+            if(target==A[mid]) return mid;
+            else if(target<A[mid]) high=mid-1;
+            else low=mid+1;
+        }
+        return low;
     }
 };
