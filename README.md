@@ -61,3 +61,9 @@
 ### [45最大子数组差](http://www.lintcode.com/zh-cn/problem/maximum-subarray-difference/)
 1. 和42最大子数组II思路一样
 2. 要注意不一定是左边数组最大而右边数组最小，结果可能在反过来的情况中，所以要都考虑到。
+### [60搜索插入位置](http://www.lintcode.com/zh-cn/problem/search-insert-position/)
+1. 基本思路二分法
+2. 二分法并不难，但是关键的地方在于当找不到元素的时候如何正确的返回比target大的最小值的元素。在循环过程中不断的向target逼近。
+### [61搜索区间](http://www.lintcode.com/zh-cn/problem/search-for-a-range/)
+1. 和60搜索插入位置类似都是二分查找法
+2. 要注意的是对于重复元素，这样就只能用60搜索插入位置的版本1来做。
