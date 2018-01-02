@@ -9,7 +9,7 @@ public:
         // write your code here
         if(nums.size() < 1)return 0;
         return partition(nums, k, 0, nums.size()) + 1;
-    }
+    } 
     int partition(vector<int> &nums, int k, int l, int r){
         // 1 三路排序
         // int lt = l - 1, gt = r;

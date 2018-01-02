@@ -28,7 +28,7 @@ public:
             if(j >= mid){
                 A[i] = aux[k-l];
                 k++;
-            }
+            } 
             else if(k >= r){
                 A[i] = aux[j-l];
                 j++;
