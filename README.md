@@ -67,3 +67,9 @@
 ### [61搜索区间](http://www.lintcode.com/zh-cn/problem/search-for-a-range/)
 1. 和60搜索插入位置类似都是二分查找法
 2. 要注意的是对于重复元素，这样就只能用60搜索插入位置的版本1来做。
+### [62搜索旋转排序数组](http://www.lintcode.com/zh-cn/problem/search-in-rotated-sorted-array/)
+1. 基本思路仍是二分法，只是现在找出mid后，mid可能只有一边有序，另一边无序了，但是我们可以拿有序那边做判断，因为是有序，很容易判断出target在不在，如果不在就直接将范围缩小到另一端。
+### [63搜索排序旋转数组II](http://www.lintcode.com/zh-cn/problem/search-in-rotated-sorted-array-ii/)
+1. 代码同62搜索旋转排序数组一样
+### [64合并排序数组II](http://www.lintcode.com/zh-cn/problem/merge-sorted-array/)
+1. 直接用的归并排序的merge函数
