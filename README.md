@@ -73,3 +73,10 @@
 1. 代码同62搜索旋转排序数组一样
 ### [64合并排序数组II](http://www.lintcode.com/zh-cn/problem/merge-sorted-array/)
 1. 直接用的归并排序的merge函数
+### [75寻找峰值](http://www.lintcode.com/zh-cn/problem/find-peak-element/)
+1. 首先题目要求时间复杂度为o(logn)，因此还是适用二分法
+2. 由于题目中确保了至少存在了一个峰值，所以当`A[mid] < A[mid+1]` 时，我们就能得到在mid的右边是至少存在一个峰值的所以可以直接让数组向右走，反过来，让数组直接想左二分即可。
+### [100删除排序数组中的重复数字](http://www.lintcode.com/zh-cn/problem/remove-duplicates-from-sorted-array/)
+1. 维持两个指针i，j,遍历j，每次当nums[j]!=nums[i]的时候，就表明遇到了一个新的不重复的num，此时赋值给nums[++i]即可。最后i+1就是数组的长度。
+### [101删除排序数组中的重复数字 II](http://www.lintcode.com/zh-cn/problem/remove-duplicates-from-sorted-array-ii/)
+1. 和上一题一样，只需加一个计数器即可。
