@@ -101,3 +101,7 @@
 2. 基本思路和代码都是和**135数字组合**一样的，不同的地方在于要去重。
 ### [152组合](http://www.lintcode.com/zh-cn/problem/combinations/)
 1. 和**135数字组合一样**都是简单回溯法的应用
+### [157判断字符串是否没有重复字符](http://www.lintcode.com/zh-cn/problem/unique-characters/)
+1. 这道题要求不占用额外空间，我见其他人都是直接两重循环做那样复杂度就是O(n2)，如果我先排序(onlogn)，然后在遍历一遍，这样最后是O(nlogn)。
+### [172删除元素](http://www.lintcode.com/zh-cn/problem/remove-element/)
+1. 维护两个索引i,j，让j一直遍历，只要不与target相同，就给num[i]赋值，i++，最后i的值就是新的数组的长度
