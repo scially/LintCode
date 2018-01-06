@@ -90,9 +90,14 @@
 
 ### [116跳跃游戏](http://www.lintcode.com/zh-cn/problem/jump-game/)
 1. 目前用的动态规划，能否跳到最后一个位置也就是dp[n]是否为true，取决于dp[n-1],dp[n-2],...,dp[1]他们是否能跳到，如果能跳到他们的位置，那他们能否跳到最后一个位置，所以我们需要一个dp[n]来保存这些状态
-### [124最长连续序列]
+### [124最长连续序列](http://www.lintcode.com/zh-cn/problem/longest-consecutive-sequenc)
 1. 题中要求时间复杂度为O(n)，那很容易想到我们需要一个工具来记录。
 2. 我们选择map来记录，当我们遇到一个数字时，首先判断在不在map中，若不在map中，那我们就看下这个数字-1 和 +1 在if不在，然后分别判断，若在，则说明之前已经记录过他们的长度，那我们跟着这个记录很容易回到这个序列的第一个和最后一个，更新记录即可。
 ### [135数字组合](http://www.lintcode.com/zh-cn/problem/combination-sum/)
 1. 回溯法
 2. 从第0个数字开始，当我们把这个数字加到r(vector<int>)中后，target就要相应变化，然后我们接着从这个数组中找变化之后的target，如果target=0，就结束，否则就一直递归下去。
+### [153数字组合II](http://www.lintcode.com/zh-cn/problem/combination-sum-ii/)
+1. 回溯法
+2. 基本思路和代码都是和**135数字组合**一样的，不同的地方在于要去重。
+### [152组合](http://www.lintcode.com/zh-cn/problem/combinations/)
+1. 和**135数字组合一样**都是简单回溯法的应用
