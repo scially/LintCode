@@ -124,3 +124,8 @@
 3. 要注意重复情况比如[2,2,2,2]这种，处理不当可能会死循环。
 ### [363接雨水](http://www.lintcode.com/zh-cn/problem/trapping-rain-water/)
 1. 从题中的图可以看出，数组是先增后减，所以那个最大值的地方就是我们分水岭，相对于左边来说，这个值就是右边的最大值，那我们就从0开始遍历到这个位置，每次都取一个最大值，代表了左边能接到雨水的最大值，依次累积。然后在从右往左遍历即可。
+### [373奇偶分割数组](http://www.lintcode.com/zh-cn/problem/partition-array-by-odd-and-even/)
+1. 和快排的partition操作类似
+### [374螺旋矩阵](http://www.lintcode.com/zh-cn/problem/spiral-matrix/)
+1. 找出规律，递归即可
+2. 应该要有更简单的方法
