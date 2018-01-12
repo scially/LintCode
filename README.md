@@ -143,3 +143,13 @@
 1. 这个题一个前提假设就是每个人都在为自己争取最大的利益。
 2. 第一种解法:就是动态规划，实际上对于1个硬币，第一个人肯定赢，对于2两个硬币，第二个人也能赢，对于3个硬币呢，我们看1个硬币和2个硬币第一个人都能赢，这也就意味着当到3个硬币的时候，第一个人能拿走第一个硬币或者前两个硬币，不管是这两种那哪种情况，第二个人都可以一下全部收走，这样递推下去就行。
 3. 第二种思路参考CSDN上的，就是判断 ```n%3!=0``` 就行，因为要想让第二个人赢，只有当剩3个硬币的时候第二个人才可以赢。
+### [395.硬币排成线II]
+1. 这道题最开始我一直想着从前向后做，可是这样发现，每次我想拿到第i个值的状态，他都和后面未拿到的值的状态有关，于是反过来思考。
+2. 因为是要拿到最大值，所以每个硬币第一个人都是有可能拿到的，所以我们这么想，当我们在第i个硬币的位置时，我们可以拿一个硬币，也可以拿两个硬币，当我们拿一个硬币时，第二个人可能拿一个，也可能拿两个，这道题实际上暗示了一个假设就是每个人都在为自己争取最大的利益，所以第二个人不管是拿一个还是拿两个，最终目的都是为了让自己利益最大，反过来也就是让第一个人利益最小，此时我们就有了一个状态转移方程：  
+<a href="https://www.codecogs.com/eqnedit.php?latex=dp[i]=values[i]&space;&plus;&space;min(dp[i&plus;2],dp[i&plus;3])" target="_blank"><img src="https://latex.codecogs.com/gif.latex?dp[i]=values[i]&space;&plus;&space;min(dp[i&plus;2],dp[i&plus;3])" title="dp[i]=values[i] + min(dp[i+2],dp[i+3])" /></a>  
+式中dp[i+2]代表着第二个人拿了一个硬币，那我们就要从第i+2个硬币开始拿。
+
+3. 类比于上式，我们可以得到最终的状态转移方程：   
+<a href="https://www.codecogs.com/eqnedit.php?latex=\begin{cases}&space;values[i],\&space;if\&space;i&space;=&space;size-1\&space;(size\&space;from\&space;0\&space;to\&space;size-1)&space;\\values[i-1]&plus;values[i],\&space;if\&space;i=size-2&space;\\max(values[i]&plus;min(dp[i&plus;2],dp[i&plus;3]),values[i]&plus;values[i&plus;1]&plus;min(dp[i&plus;3],dp[i&plus;4])),\&space;if\&space;i<=size-3&space;\end{cases}\right." target="_blank"><img src="https://latex.codecogs.com/gif.latex?\begin{cases}&space;values[i],\&space;if\&space;i&space;=&space;size-1\&space;(size\&space;from\&space;0\&space;to\&space;size-1)&space;\\values[i-1]&plus;values[i],\&space;if\&space;i=size-2&space;\\max(values[i]&plus;min(dp[i&plus;2],dp[i&plus;3]),values[i]&plus;values[i&plus;1]&plus;min(dp[i&plus;3],dp[i&plus;4])),\&space;if\&space;i<=size-3&space;\end{cases}\right." title="\begin{cases} values[i],\ if\ i = size-1\ (size\ from\ 0\ to\ size-1) \\values[i-1]+values[i],\ if\ i=size-2 \\max(values[i]+min(dp[i+2],dp[i+3]),values[i]+values[i+1]+min(dp[i+3],dp[i+4])),\ if\ i<=size-3 \end{cases}\right." /></a>  
+
+4. 最终我们求得的dp[0]就是第一个人能拿到的最大硬币值，让所有硬币值减去第一个人的就是第二个人拿到的，两个值比较就可得出输赢。
