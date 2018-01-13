@@ -159,6 +159,12 @@
 <a href="https://www.codecogs.com/eqnedit.php?latex=dp[i]=\begin{cases}&space;1,\&space;if\&space;values[i-1]\geq&space;values[i]\&space;or\&space;i=&space;0&space;\\dp[i-1]&plus;1,\&space;if\&space;values[i-1]&space;<&space;values[i]&space;\end{cases}\right." target="_blank"><img src="https://latex.codecogs.com/gif.latex?dp[i]=\begin{cases}&space;1,\&space;if\&space;values[i-1]\geq&space;values[i]\&space;or\&space;i=&space;0&space;\\dp[i-1]&plus;1,\&space;if\&space;values[i-1]&space;<&space;values[i]&space;\end{cases}\right." title="dp[i]=\begin{cases} 1,\ if\ values[i-1]\geq values[i]\ or\ i= 0 \\dp[i-1]+1,\ if\ values[i-1] < values[i] \end{cases}\right." /></a>
 
 2. 因为题目要求从右向左也是可以的，所以我们反过来再算一次，求出所有```dp[i]```的最大值即可。
-### [402连续子数组求和]
+### [402连续子数组求和](http://www.lintcode.com/zh-cn/problem/continuous-subarray-sum/)
 1. 这道题和有一道动态规划很像，等找到了补上去
-2. 因为要求是连续子数组，所以我们从0开始依次累加，当我们的sum<0时，这个i就是新的分割点，因为sum<0，所以我们不管加一个什么值都会比sum小，这时可以在拿max与sum比较更新索引。
+2. 因为要求是连续子数组，所以我们从0开始依次累加，当我们的```sum<0```时，这个i就是新的分割点，因为```sum<0```，所以我们不管加一个什么值都会比sum小，这时可以在拿max与sum比较更新索引。
+### [406.和大于S的最小子数组](http://www.lintcode.com/zh-cn/problem/minimum-size-subarray-sum/)
+1. 因为要求是连续子数组，所以我们从0开始，每个元素我们加一次，然后更新最短距离就好。
+2. 还可以说当我们的子数组和大于target时，我们可以让left+1，让right以此向右，然后直到子数组和在此小于target时更新最短距离。
+
+### [407.加一](http://www.lintcode.com/zh-cn/problem/plus-one/)
+1. 注意一点就是最后一位需要进位的情况。
