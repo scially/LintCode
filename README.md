@@ -15,6 +15,9 @@
 ### 387.最小差
 1. 遍历A中每个元素，然后二分法在B中查找与该元素最接近的元素。
 2. 在二分法查找的过程中，对于A[mid]元素要特别注意，当根据mid分区间的过程时，如果A[mid]!=该元素，那么就需要将smallest与mid这个元素与该元素差值进行比较更新，以防止在mid两边的区间中找不到该元素的情况。
+### 608.[两数和-输入已排序的数组](http://www.lintcode.com/zh-cn/problem/two-sum-input-array-is-sorted/)
+1. 因为这道题已经说数组有序了，所以我们在拿到第一个数之后，得到target-num，然后对剩下的数组进行二分查找，这样时间复杂度为O(nlogn)。
+2. 此题也可以那哈希表做，我们将每次的target-num放到map集合中，每次都搜寻一下，搜索到了自然就是最后的结果。
 ### 57.三数之和
 1. 首先对数组按从小到大顺序排序，然后锁定两个数i,j之后，只需要考虑j之后的部分（因为数组有序，所以能与i和j组成0的已经在之前考虑过了。
 2. 在j之后进行二分法搜索确定第三个数
@@ -168,3 +171,8 @@
 
 ### [407.加一](http://www.lintcode.com/zh-cn/problem/plus-one/)
 1. 注意一点就是最后一位需要进位的情况。
+### [539.移动零](http://www.lintcode.com/zh-cn/problem/move-zeroes/)
+1. 两根指针
+### [633.寻找重复的数](http://www.lintcode.com/zh-cn/problem/find-the-duplicate-number/)
+1. 因为不能修改数组，所以不能使用排序
+2. 这道题用了很经典的[二分法的思路](http://blog.csdn.net/apie_czx/article/details/49278447)我们只要把left和right当做是重复值的下上界限就能别有洞天。接着开展二分搜索中的搜索过程：mid取中值，那么nums中的数就被分成了```[left , mid - right]```两端了。然后我们遍历一遍nums，统计所有<=mid的值count，如果```count > right - left + 1```，说明```[ left - mid ]```段的数字中存在重复（重复值为其区间的值），所以令```right = mid```。反之就是```[ mid - right ]```的数字，所以令```left = mid + 1```；知道其结束条件即可。
