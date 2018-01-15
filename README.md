@@ -1,4 +1,5 @@
 # LintCode题解
+## 数组、排序
 ### 464.整数排序
 1. 这道题和49字符大小写排序那道题很一样，可以分别使用快排和归并排序
 2. 对于快排，要熟练掌握2路排序和3路排序，在后面的题中会用到。
@@ -176,3 +177,10 @@
 ### [633.寻找重复的数](http://www.lintcode.com/zh-cn/problem/find-the-duplicate-number/)
 1. 因为不能修改数组，所以不能使用排序
 2. 这道题用了很经典的[二分法的思路](http://blog.csdn.net/apie_czx/article/details/49278447)我们只要把left和right当做是重复值的下上界限就能别有洞天。接着开展二分搜索中的搜索过程：mid取中值，那么nums中的数就被分成了```[left , mid - right]```两端了。然后我们遍历一遍nums，统计所有<=mid的值count，如果```count > right - left + 1```，说明```[ left - mid ]```段的数字中存在重复（重复值为其区间的值），所以令```right = mid```。反之就是```[ mid - right ]```的数字，所以令```left = mid + 1```；知道其结束条件即可。
+## 链表
+### [35.翻转链表](http://www.lintcode.com/zh-cn/problem/reverse-linked-list/)
+1. 我们把每一个结点指向反过来，最后最后一个结点就是头结点。
+2. 注意最后边界问题。
+### [36.翻转链表II](http://www.lintcode.com/zh-cn/problem/reverse-linked-list-ii/)
+1. 和上一题一样的思路，但是这里需要先找到前一个结点和后一个结点
+2. 注意head问题。
