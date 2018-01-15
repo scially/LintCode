@@ -184,3 +184,5 @@
 ### [36.翻转链表II](http://www.lintcode.com/zh-cn/problem/reverse-linked-list-ii/)
 1. 和上一题一样的思路，但是这里需要先找到前一个结点和后一个结点
 2. 注意head问题。
+### [48.主元素III]
+1. 这道题我用的哈希表做的，只是简单统计即可。
