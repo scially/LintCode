@@ -184,5 +184,8 @@
 ### [36.翻转链表II](http://www.lintcode.com/zh-cn/problem/reverse-linked-list-ii/)
 1. 和上一题一样的思路，但是这里需要先找到前一个结点和后一个结点
 2. 注意head问题。
-### [48.主元素III]
+### [48.主元素III](http://www.lintcode.com/zh-cn/problem/majority-number-iii/)
 1. 这道题我用的哈希表做的，只是简单统计即可。
+### [96.划分链表](http://www.lintcode.com/zh-cn/problem/partition-list/)
+1. 对于链表来说，这里我们常常引入一个dummy结点，让```dumm->next = head```作为哨兵结点，为什么？因为对于类似的```head=node```这样的赋值来说，是不能改变链表的走向的，我们只能说```dummy->next=node```才可以改变链表。
+2. 本来用的是快排的partition操作，可是题中要求不能改变相对顺序，于是加入两个头结点，从head开始遍，分别将小于k和大于k的指向两个结点，最后将两个结点汇总到一起。
