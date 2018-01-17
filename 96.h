@@ -39,8 +39,26 @@ public:
         // return dummy->next;
         
         
-        ListNode *dummyleft = new ListNode(0), *dummyright = new ListNode(0);
-        ListNode *_dummyleft = dummyleft, *_dummyright = dummyright;
+        // ListNode *dummyleft = new ListNode(0), *dummyright = new ListNode(0);
+        // ListNode *_dummyleft = dummyleft, *_dummyright = dummyright;
+        // while(head != nullptr){
+        //     if(head->val < x){
+        //         _dummyleft->next = head;
+        //         _dummyleft = head;
+        //     }
+        //     else{
+        //         _dummyright->next = head;
+        //         _dummyright = head;
+        //     }
+        //     head = head->next;
+        // }
+        // _dummyright->next = nullptr; //防止链表死循环
+        // _dummyleft->next = dummyright->next;
+        // return dummyleft->next;
+
+        // fix memory bugs
+        ListNode dummyleft(0), dummyright(0);
+        ListNode *_dummyleft = &dummyleft, *_dummyright = &dummyright;
         while(head != nullptr){
             if(head->val < x){
                 _dummyleft->next = head;
@@ -53,7 +71,7 @@ public:
             head = head->next;
         }
         _dummyright->next = nullptr; //防止链表死循环
-        _dummyleft->next = dummyright->next;
-        return dummyleft->next;
+        _dummyleft->next = dummyright.next;
+        return dummyleft.next;
     }
 };
