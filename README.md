@@ -177,7 +177,7 @@
 ### [633.寻找重复的数](http://www.lintcode.com/zh-cn/problem/find-the-duplicate-number/)
 1. 因为不能修改数组，所以不能使用排序
 2. 这道题用了很经典的[二分法的思路](http://blog.csdn.net/apie_czx/article/details/49278447)我们只要把left和right当做是重复值的下上界限就能别有洞天。接着开展二分搜索中的搜索过程：mid取中值，那么nums中的数就被分成了```[left , mid - right]```两端了。然后我们遍历一遍nums，统计所有<=mid的值count，如果```count > right - left + 1```，说明```[ left - mid ]```段的数字中存在重复（重复值为其区间的值），所以令```right = mid```。反之就是```[ mid - right ]```的数字，所以令```left = mid + 1```；知道其结束条件即可。
-## 链表
+## [链表](http://www.lintcode.com/problem/?tag=linked-list)
 ### [35.翻转链表](http://www.lintcode.com/zh-cn/problem/reverse-linked-list/)
 1. 我们把每一个结点指向反过来，最后最后一个结点就是头结点。
 2. 注意最后边界问题。
@@ -194,3 +194,8 @@
 2. 第二种就是归并了，对于链表来说，归并好做，但是很多小细节要注意：   
     1. 如何找中间节点，这里就是利用快慢节点关系，快结点每次走两个结点，慢节点每次走1个结点，这样相同的时间，当快结点到终点时，慢节点就恰好在中间节点的位置上，但是这里对偶数结点，最终是偏左还是偏右和代码的第71行的初值有关。
     2. 就是边界问题要考虑清楚。
+### [99.重排链表](http://www.lintcode.com/zh-cn/problem/reorder-list/)
+**题目：** 给定一个单链表L:L0->L1->L2->...->Ln-1->Ln,重新排列后为：L0→Ln→L1→Ln-1→L2→Ln-2->... ,必须在不改变结点值的情况下进行原地操作。例如给出链表 1->2->3->4->null，重新排列后为1->4->2->3->null   
+**分析：**
+1. 因为不能改变结点值，且原地操作，所以我们首先想到先找到mid结点，然后将mid结点一直到end翻转一下，然后将这个新链表插入到前半个链表即可。
+2. 这里要注意```node = next```和```node->next = next```的区别。
