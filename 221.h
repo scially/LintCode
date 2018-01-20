@@ -45,7 +45,7 @@ public:
             
             rem = rem->next;
         }
-        if(add){
+        if(add){ // add = 1
             ListNode *next = new ListNode(add);
             cur->next = next;
             cur = next;
