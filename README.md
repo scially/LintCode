@@ -248,3 +248,17 @@
 2. 要注意的是：
     1. 当```k==0```时
     2. 当```k>=length```时
+### [174. 删除链表中倒数第n个节点](http://www.lintcode.com/zh-cn/problem/remove-nth-node-from-end-of-list/)
+**题目：** 给定一个链表，删除链表中倒数第n个节点，返回链表的头节点。例如：给出链表```1->2->3->4->5->null```和 ```n = 2```。删除倒数第二个节点之后，这个链表将变成```1->2->3->5->null```.   
+**分析：**
+1. 首先按照[166. 链表倒数第n个节点](http://www.lintcode.com/zh-cn/problem/nth-to-last-node-in-list/)的思路找到倒数第n+1个结点，然后让```n->next = n->next->next```即可。
+2. 这里要注意当最后删除的结点是第一个结点的情况，为了让整个循环统一，我们可以用一个哨兵结点。
+### [223. 回文链表](http://www.lintcode.com/zh-cn/problem/palindrome-linked-list/)
+**题目：** 设计一种方式检查一个链表是否为回文链表。例如： ```1->2->1``` 就是一个回文链表。  
+**分析：**
+1. 从中间结点将链表断开，将右边的链表反转，然后比较。
+2. 注意当链表长度是奇数时，我们从中间向右一个的结点断开，然后反转后开始比较，当右边链表结束时即可。
+### [372. 在O(1)时间复杂度删除链表节点](http://www.lintcode.com/zh-cn/problem/delete-node-in-the-middle-of-singly-linked-list/)
+**题目：** 给定一个单链表中的一个等待被删除的节点(**非表头或表尾**)。请在在O(1)时间复杂度删除该链表节点。例如：Linked list is ```1->2->3->4```, and given node ```3```, delete the node in place ```1->2->4```。
+**分析：**
+1. 我们让这个结点变为下个结点的值，然后直接指向下下个结点就可以了。
