@@ -302,3 +302,14 @@ t=l-m
     1. 当两个结点相邻时
     2. 不相邻时
 2. 注意有结点在head的位置时，需要增加哨兵结点处理
+## [二叉树](http://www.lintcode.com/problem/?tag=binary-tree)
+### [66. 二叉树的前序遍历](http://www.lintcode.com/zh-cn/problem/binary-tree-preorder-traversal/)
+**题目：** 给出一棵二叉树，返回其节点值的前序遍历。       
+**分析：**
+1. 递归
+2. 对于迭代遍历，我们可以自己先手动遍历下，会发现一个规律，其实前序遍历就是从根节点开始一直沿着左节点往下遍历，然后在从叶子节点向上遍历右节点，此时我们可以用一个栈，来保存从上而下遍历时的右子节点。
+### [67. 二叉树的中序遍历](http://www.lintcode.com/zh-cn/problem/binary-tree-inorder-traversal/)
+**题目：** 给出一棵二叉树，返回其节点值的中序遍历。       
+**分析：**
+1. 递归
+2. 和[66. 二叉树的前序遍历](http://www.lintcode.com/zh-cn/problem/binary-tree-preorder-traversal/)思路一样，我们发现中序遍历是从左侧自底向上，所以我们仍然用一个栈来保存我们经历的各个节点，然后依次弹出。
