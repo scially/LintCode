@@ -492,8 +492,37 @@ t=l-m
 
 ### [69. 二叉树的层次遍历](http://www.lintcode.com/zh-cn/problem/binary-tree-level-order-traversal/)
 
-**题目：** 给出一棵二叉树，返回其节点值的层次遍历（逐层从左往右访问）。
+**题目：** 给出一棵二叉树，返回其节点值的层次遍历（逐层从左往右访问）。  
 **分析：**
 
 1. 递归(DFS)[Binary Tree Level Order Traversal II](http://blog.csdn.net/eastmount/article/details/48359685)。
 2. 队列(BFS)。只用一个队列，我们同样每次保存一个每一层最右边的节点，当到这个节点时我们就把```vector<int>```加入到```vector<vector<int>>```。
+
+### [70. 二叉树的层次遍历 II](http://www.lintcode.com/zh-cn/problem/binary-tree-level-order-traversal-ii/)
+
+**题目：**给出一棵二叉树，返回其节点值从底向上的层次序遍历（按从叶节点所在层到根节点所在的层遍历，然后逐层从左往右遍历）.  
+**分析：**
+
+1. 就是将[69. 二叉树的层次遍历](http://www.lintcode.com/zh-cn/problem/binary-tree-level-order-traversal/)的答案reverse一下，还有其他方法么？
+
+### [97. 二叉树的最大深度](http://www.lintcode.com/zh-cn/problem/maximum-depth-of-binary-tree/)
+
+**题目：**给定一个二叉树，找出其最大深度。二叉树的深度为根节点到最远叶子节点的距离。  
+**分析：**
+
+1. 递归。
+
+### [155. 二叉树的最小深度](http://www.lintcode.com/zh-cn/problem/maximum-depth-of-binary-tree/)
+
+**题目：**给定一个二叉树，找出其最小深度。二叉树的最小深度为根节点到最近叶子节点的距离。  
+**分析：**
+
+1. 递归。
+
+### [175. 翻转二叉树](http://www.lintcode.com/zh-cn/problem/invert-binary-tree/)
+
+**题目：**翻转一棵二叉树。就是镜像对称。  
+**分析：**
+
+1. 递归。
+2. 非递归，使用栈。
