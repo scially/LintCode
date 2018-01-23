@@ -41,6 +41,7 @@
 4. 参考文献：[两数和、三数和、四数和](https://www.cnblogs.com/eudiwffe/p/6282635.html)
 
 ### 59.最接近的三数之和
+
 1. 这道题和上面那道挺像的，但是不需要去重了。
 2. 在二分搜索是我借鉴了**387题最小差**的思路。
 3. 目前时间复杂度是O(n^2logn)。
@@ -484,10 +485,15 @@ t=l-m
 ### [68. 二叉树的后序遍历](http://www.lintcode.com/zh-cn/problem/binary-tree-postorder-traversal/)
 
 **题目：** 给出一棵二叉树，返回其节点值的后序遍历。
-
 **分析：**
 
 1. 递归
 2. 和[66. 二叉树的前序遍历](http://www.lintcode.com/zh-cn/problem/binary-tree-preorder-traversal/)思路一样，我们仍然是从左子数根部开始，但是此时我们需要加一个上次访问的结点，来判断根节点是否要加入，因为在到根节点时，如果根节点有右子数，但是我们循环如果不判断的话，是会死循环的。
 
-[Binary Tree Level Order Traversal II](http://blog.csdn.net/eastmount/article/details/48359685)
+### [69. 二叉树的层次遍历](http://www.lintcode.com/zh-cn/problem/binary-tree-level-order-traversal/)
+
+**题目：** 给出一棵二叉树，返回其节点值的层次遍历（逐层从左往右访问）。
+**分析：**
+
+1. 递归(DFS)[Binary Tree Level Order Traversal II](http://blog.csdn.net/eastmount/article/details/48359685)。
+2. 队列(BFS)。只用一个队列，我们同样每次保存一个每一层最右边的节点，当到这个节点时我们就把```vector<int>```加入到```vector<vector<int>>```。
