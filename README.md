@@ -313,3 +313,8 @@ t=l-m
 **分析：**
 1. 递归
 2. 和[66. 二叉树的前序遍历](http://www.lintcode.com/zh-cn/problem/binary-tree-preorder-traversal/)思路一样，我们发现中序遍历是从左侧自底向上，所以我们仍然用一个栈来保存我们经历的各个节点，然后依次弹出。
+### [68. 二叉树的后序遍历](http://www.lintcode.com/zh-cn/problem/binary-tree-postorder-traversal/)
+**题目：** 给出一棵二叉树，返回其节点值的后序遍历。       
+**分析：**
+1. 递归
+2. 和[66. 二叉树的前序遍历](http://www.lintcode.com/zh-cn/problem/binary-tree-preorder-traversal/)思路一样，我们仍然是从左子数根部开始，但是此时我们需要加一个上次访问的结点，来判断根节点是否要加入，因为在到根节点时，如果根节点有右子数，但是我们循环如果不判断的话，是会死循环的。
