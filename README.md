@@ -490,6 +490,13 @@ t=l-m
 1. 递归
 2. 和[66. 二叉树的前序遍历](http://www.lintcode.com/zh-cn/problem/binary-tree-preorder-traversal/)思路一样，我们仍然是从左子数根部开始，但是此时我们需要加一个上次访问的结点，来判断根节点是否要加入，因为在到根节点时，如果根节点有右子数，但是我们循环如果不判断的话，是会死循环的。
 
+### [632. 二叉树的最大节点](http://www.lintcode.com/zh-cn/problem/binary-tree-maximum-node/)
+
+**题目：** 在二叉树中寻找值最大的节点并返回。  
+**分析：**
+
+1. 递归, 可分别将三种非递归版本的遍历在实现一遍。
+
 ### [69. 二叉树的层次遍历](http://www.lintcode.com/zh-cn/problem/binary-tree-level-order-traversal/)
 
 **题目：** 给出一棵二叉树，返回其节点值的层次遍历（逐层从左往右访问）。  
