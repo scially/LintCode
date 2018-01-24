@@ -529,8 +529,29 @@ t=l-m
 
 ### [375. 克隆二叉树](http://www.lintcode.com/zh-cn/problem/clone-binary-tree/)
 
-**题目：**翻转一棵二叉树。就是镜像对称。  
+**题目：**深度复制一个二叉树。给定一个二叉树，返回一个他的```克隆品```。  
 **分析：**
 
 1. 递归。
 2. 因为二叉树的特殊结构，所以二叉树实现递归较多。
+
+### [376. 二叉树的路径和](http://www.lintcode.com/zh-cn/problem/binary-tree-path-sum/)
+
+**题目：**给定一个二叉树，找出所有路径中各节点相加总和等于给定```目标值```的路径。一个有效的路径，指的是从根节点到叶节点的路径。  
+**分析：**
+
+1. 递归。
+
+### [480. 二叉树的所有路径](http://www.lintcode.com/zh-cn/problem/binary-tree-paths/)
+
+**题目：**给一棵二叉树，找出从根节点到叶子节点的所有路径。  
+**分析：**
+
+1. 递归,和[376. 二叉树的路径和](http://www.lintcode.com/zh-cn/problem/binary-tree-path-sum/)思路一样
+
+### [453. 将二叉树拆成链表](http://www.lintcode.com/zh-cn/problem/flatten-binary-tree-to-linked-list/)
+
+**题目：**将一棵二叉树按照前序遍历拆解成为一个```假链表```。所谓的假链表是说，用二叉树的```right```指针，来表示链表中的```next```指针。  
+**分析：**
+
+1. 递归,每次交换左右节点，将右节点放在左节点的最右子节点上，将最新的左节点放到右节点上。
