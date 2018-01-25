@@ -18,8 +18,16 @@ public:
      */
     int maxDepth(TreeNode *root) {
         // write your code here
-        return maxDepth(root, 0);
+        // verson 1
+        //return maxDepth(root, 0);
+        
+        // verson 2
+        if(root == nullptr) return 0;
+        int d1 = maxDepth(root->left);
+        int d2 = maxDepth(root->right);
+        return max(d1, d2) + 1;
     }
+    
     int maxDepth(TreeNode *root, int depth){
         if(root == nullptr) return depth;
         int d1 = maxDepth(root->left, depth+1);
