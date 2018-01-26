@@ -597,3 +597,17 @@ t=l-m
 
 1. 注意子树的概念。
 2. 递归。
+
+### [85. 在二叉查找树中插入节点](http://www.lintcode.com/zh-cn/problem/insert-node-in-a-binary-search-tree/)
+
+**题目：** 给定一棵二叉查找树和一个新的树节点，将节点插入到树中。你需要保证该树仍然是一棵二叉查找树。  
+**分析：**
+
+1. 递归。
+
+### [11. 二叉查找树中搜索区间](http://www.lintcode.com/zh-cn/problem/search-range-in-binary-search-tree/)
+
+**题目：** 给定两个值 k1 和 k2（k1 < k2）和一个二叉查找树的根节点。找到树中所有值在 k1 到 k2 范围内的节点。即打印所有x (k1 <= x <= k2) 其中 x 是二叉查找树的中的节点值。返回所有升序的节点值。  
+**分析：**
+
+1. 二叉搜索树的中序遍历就是升序
