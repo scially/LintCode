@@ -667,3 +667,14 @@ t=l-m
 #### 分析：
 
 1. 迭代版的中序遍历，参考[68. 二叉树的后序遍历](http://www.lintcode.com/zh-cn/problem/binary-tree-postorder-traversal/)
+
+### [177. 把排序数组转换为高度最小的二叉搜索树](http://www.lintcode.com/zh-cn/problem/convert-sorted-array-to-binary-search-tree-with-minimal-height/)
+
+#### 题目：
+
+给一个排序数组（从小到大），将其转换为一棵高度最小的排序二叉树。
+
+#### 分析：
+
+1. 首先要想到有序数组可以是BST的中序遍历，那么数组的中间节点就是根节点，左边是左子树，右边是右子数，迭代即可。
+2. 注意这里LintCode有一个bug就是当你的数组范围是[b,e)，即左开右闭取得mid时，LintCode会通不过，LeetCode没问题。
