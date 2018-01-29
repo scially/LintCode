@@ -644,3 +644,26 @@ t=l-m
    [4 2 5]是左子树 [6 3 7]是右子数 中序遍历  
    它们对应的前序遍历分别是[2 4 5] [3 6 7]  
    依次递归即可。
+
+### [72. 中序遍历和后序遍历树构造二叉树](http://www.lintcode.com/zh-cn/problem/construct-binary-tree-from-inorder-and-postorder-traversal/)
+
+#### 题目：
+
+根据中序遍历和后序遍历树构造二叉树
+
+#### 分析：
+
+1. 递归。和[73. 前序遍历和中序遍历树构造二叉树](http://www.lintcode.com/zh-cn/problem/construct-binary-tree-from-preorder-and-inorder-traversal/)思路一样。
+
+### [86. 二叉查找树迭代器](http://www.lintcode.com/zh-cn/problem/binary-search-tree-iterator/)
+
+#### 题目：
+
+设计实现一个带有下列属性的二叉查找树的迭代器：
+
+1. 元素按照递增的顺序被访问（比如中序遍历）
+2. ```next()```和```hasNext()```的询问操作要求均摊时间复杂度是O(1)
+
+#### 分析：
+
+1. 迭代版的中序遍历，参考[68. 二叉树的后序遍历](http://www.lintcode.com/zh-cn/problem/binary-tree-postorder-traversal/)
