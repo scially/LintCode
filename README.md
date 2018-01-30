@@ -731,7 +731,7 @@ t=l-m
 
 1. 分治查询，只需要分清楚`mid`和`start`和`end`的关系即可。
 
-### [247. 线段树查询 II ](http://www.lintcode.com/zh-cn/problem/segment-tree-query-ii/)
+### [247. 线段树查询 II](http://www.lintcode.com/zh-cn/problem/segment-tree-query-ii/)
 
 #### 题目：
 
@@ -743,4 +743,15 @@ t=l-m
 
 1. 和[202. 线段树的查询](http://www.lintcode.com/zh-cn/problem/segment-tree-query/)完全一样的思路，但是要注意的是这里既然要统计，就会出现查询范围比数组范围大，或者为`NULL`的情况。
 2. 分治，只需要分清楚`mid`和`start`和`end`的关系即可。
- 
+
+### 203. 线段树的修改](http://www.lintcode.com/zh-cn/problem/segment-tree-modify/)
+
+#### 题目：
+
+对于一棵 最大线段树, 每个节点包含一个额外的 max 属性，用于存储该节点所代表区间的最大值。  
+
+设计一个`modify` 的方法，接受三个参数 `root`、 `index` 和 `value`。该方法将 `root` 为根的线段树中 `[start, end] = [index, index]` 的节点修改为了新的 `value` ，并确保在修改后，线段树的每个节点的 `max` 属性仍然具有正确的值。
+
+#### 分析：
+
+1. 和[202. 线段树的查询](http://www.lintcode.com/zh-cn/problem/segment-tree-query/)基本一样的思路，只需要在递归基的时候加一行赋值代码即可。
