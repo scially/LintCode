@@ -718,3 +718,29 @@ t=l-m
 #### 分析：
 
 1. 递归。
+
+### [202. 线段树的查询](http://www.lintcode.com/zh-cn/problem/segment-tree-query/)
+
+#### 题目：
+
+对于一个有```n```个数的整数数组，在对应的线段树中, 根节点所代表的区间为```0 - n-1```, 每个节点有一个额外的属性```max```，值为该节点所代表的数组区间```start```到```end```内的最大值。  
+
+为```SegmentTree```设计一个```query```的方法，接受3个参数`root`, `start`和`end`，线段树root所代表的数组中子区间`[start, end]`内的最大值。
+
+#### 分析：
+
+1. 分治查询，只需要分清楚`mid`和`start`和`end`的关系即可。
+
+### [247. 线段树查询 II ](http://www.lintcode.com/zh-cn/problem/segment-tree-query-ii/)
+
+#### 题目：
+
+对于一个数组，我们可以对其建立一棵`线段树`, 每个结点存储一个额外的值`count`来代表这个结点所指代的数组区间内的元素个数. (数组中并不一定每个位置上都有元素)  
+
+实现一个`query`的方法，该方法接受三个参数`root`, `start`和`end`, 分别代表线段树的根节点和需要查询的区间，找到数组中在区间`[start, end]`内的元素个数
+
+#### 分析：
+
+1. 和[202. 线段树的查询](http://www.lintcode.com/zh-cn/problem/segment-tree-query/)完全一样的思路，但是要注意的是这里既然要统计，就会出现查询范围比数组范围大，或者为`NULL`的情况。
+2. 分治，只需要分清楚`mid`和`start`和`end`的关系即可。
+ 

@@ -46,10 +46,10 @@ public:
     ResultType help(TreeNode *root){
         if(root == nullptr)
             return ResultType(nullptr, nullptr, true);
-        
-        
+             
         ResultType l = help(root->left);
         ResultType r = help(root->right);
+        
         if(!l.isBST || !r.isBST)
             return ResultType(nullptr, nullptr, false);
         // 左子树中的最大值要小于根节点，否则为false
