@@ -679,6 +679,16 @@ t=l-m
 1. 首先要想到有序数组可以是BST的中序遍历，那么数组的中间节点就是根节点，左边是左子树，右边是右子数，迭代即可。
 2. 注意这里LintCode有一个bug就是当你的数组范围是[b,e)，即左开右闭取得mid时，LintCode会通不过，LeetCode没问题。
 
+### [106. 排序列表转换为二分查找树](http://www.lintcode.com/zh-cn/problem/convert-sorted-list-to-balanced-bst/)
+
+#### 题目：
+
+给出一个所有元素以升序排序的单链表，将它转换成一棵高度平衡的二分查找树  
+
+#### 分析：
+
+1. 和[177. 把排序数组转换为高度最小的二叉搜索树](http://www.lintcode.com/zh-cn/problem/convert-sorted-array-to-binary-search-tree-with-minimal-height/)一样的思路，每次寻找链表的中间节点作为根节点。
+
 ### [7. 二叉树的序列化和反序列化](http://www.lintcode.com/zh-cn/problem/binary-tree-serialization/)
 
 #### 题目：
@@ -744,7 +754,7 @@ t=l-m
 1. 和[202. 线段树的查询](http://www.lintcode.com/zh-cn/problem/segment-tree-query/)完全一样的思路，但是要注意的是这里既然要统计，就会出现查询范围比数组范围大，或者为`NULL`的情况。
 2. 分治，只需要分清楚`mid`和`start`和`end`的关系即可。
 
-### 203. 线段树的修改](http://www.lintcode.com/zh-cn/problem/segment-tree-modify/)
+### [203. 线段树的修改](http://www.lintcode.com/zh-cn/problem/segment-tree-modify/)
 
 #### 题目：
 
@@ -755,3 +765,13 @@ t=l-m
 #### 分析：
 
 1. 和[202. 线段树的查询](http://www.lintcode.com/zh-cn/problem/segment-tree-query/)基本一样的思路，只需要在递归基的时候加一行赋值代码即可。
+
+### [726. 验证满二叉树](http://www.lintcode.com/zh-cn/problem/check-full-binary-tree/)
+
+#### 题目：
+
+如果一棵二叉树所有节点都有零个或两个子节点, 那么这棵树为满二叉树. 反过来说, 满二叉树中不存在只有一个子节点的节点. 
+
+#### 分析：
+
+1. 分治。
