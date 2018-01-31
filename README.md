@@ -328,6 +328,16 @@ t=l-m
 
 所用此时慢指针已经跑了```l-m```个结点，也就是一个环，那我们再让他跑```m```个结点，就跑了l个结点，此时应该刚好回到环的开始，而```m```个结点的距离刚好又是从链表起点到环开始的距离，所用我们就在用一个```start```指针，让他们同时跑，最后相遇时，就是环的起始结点。
 
+### [105. 复制带随机指针的链表](http://www.lintcode.com/zh-cn/problem/copy-list-with-random-pointer/)
+
+#### 题目：
+
+给出一个链表，每个节点包含一个额外增加的随机指针可以指向链表中的任何节点或空的节点。返回一个深拷贝的链表.  
+
+#### 分析：
+
+1. 第一次遍历的时候使用一个map（哈希表）来记录旧链表和新链表，然后在遍历一次即可。
+
 ### [104.合并k个排序链表](http://www.lintcode.com/zh-cn/problem/merge-k-sorted-lists/)
 
 **题目：** 合并k个排序链表，并且返回合并后的排序链表。尝试分析和描述其复杂度。例如给出3个排序链表```[2->4->null,null,-1->null]```，返回 ```-1->2->4->null```.  
@@ -482,6 +492,16 @@ t=l-m
 
 1. 递归
 2. 和[66. 二叉树的前序遍历](http://www.lintcode.com/zh-cn/problem/binary-tree-preorder-traversal/)思路一样，我们发现中序遍历是从左侧自底向上，所以我们仍然用一个栈来保存我们经历的各个节点，然后依次弹出。
+
+### [378. 将二叉查找树转换成双链表](http://www.lintcode.com/zh-cn/problem/convert-binary-search-tree-to-doubly-linked-list/)
+
+#### 题目：
+
+将一个二叉查找树按照中序遍历转换成双向链表。
+
+#### 分析：
+
+1. 利用[67. 二叉树的中序遍历](http://www.lintcode.com/zh-cn/problem/binary-tree-inorder-traversal/)的迭代版。
 
 ### [68. 二叉树的后序遍历](http://www.lintcode.com/zh-cn/problem/binary-tree-postorder-traversal/)
 
