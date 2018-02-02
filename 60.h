@@ -12,12 +12,11 @@ public:
         // int l = 0, r = A.size();
         // while(l < r){
         //     int mid = l + (r-l)/2;
-        //     if(target < A[mid]) r = mid ;
+        //     if(target <= A[mid]) r = mid ;
         //     else l = mid + 1;
         // }
         
-        // if(r >=1 && A[r-1] == target) return r-1;
-        // else return r;
+        // return r;
         
         //verson2
 		// int left = 0, right = A.size();

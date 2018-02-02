@@ -24,7 +24,10 @@ public:
             if(target < A[mid]) r = mid;
             else l = mid + 1;
         }
+        // 这里之所以要这样判断的情况，就是因为我们定义的数组的范围是[l,r)
         if(r>=1 && A[r-1] == target) res[1] = r-1;
+        // 或者这样 使用l也可以
+        //range[1] = (l >= 1 && A[l-1] == target)? l - 1 : -1;
         return res;
     }
 };
