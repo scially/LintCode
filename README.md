@@ -107,18 +107,6 @@
 1. 和42最大子数组II思路一样
 2. 要注意不一定是左边数组最大而右边数组最小，结果可能在反过来的情况中，所以要都考虑到。
 
-### [62.搜索旋转排序数组](http://www.lintcode.com/zh-cn/problem/search-in-rotated-sorted-array/)
-
-1. 基本思路仍是二分法，只是现在找出mid后，mid可能只有一边有序，另一边无序了，但是我们可以拿有序那边做判断，因为是有序，很容易判断出target在不在，如果不在就直接将范围缩小到另一端。
-
-### [63.搜索排序旋转数组II](http://www.lintcode.com/zh-cn/problem/search-in-rotated-sorted-array-ii/)
-
-1. 代码同62搜索旋转排序数组一样
-
-### [64.合并排序数组II](http://www.lintcode.com/zh-cn/problem/merge-sorted-array/)
-
-1. 直接用的归并排序的merge函数
-
 ### [75.寻找峰值](http://www.lintcode.com/zh-cn/problem/find-peak-element/)
 
 1. 首先题目要求时间复杂度为o(logn)，因此还是适用二分法
@@ -847,3 +835,26 @@ t=l-m
 #### 分析：
 
 1. 二分法，注意溢出。
+
+### [62.搜索旋转排序数组](http://www.lintcode.com/zh-cn/problem/search-in-rotated-sorted-array/)
+
+1. 基本思路仍是二分法，只是现在找出mid后，mid可能只有一边有序，另一边无序了，但是我们可以拿有序那边做判断，因为是有序，很容易判断出target在不在，如果不在就直接将范围缩小到另一端。
+
+### [63.搜索排序旋转数组II](http://www.lintcode.com/zh-cn/problem/search-in-rotated-sorted-array-ii/)
+
+1. 代码同62搜索旋转排序数组一样
+
+### [64.合并排序数组II](http://www.lintcode.com/zh-cn/problem/merge-sorted-array/)
+
+1. 直接用的归并排序的merge函数
+
+### [159. 寻找旋转排序数组中的最小值](http://www.lintcode.com/zh-cn/problem/find-minimum-in-rotated-sorted-array/)
+
+#### 题目：
+
+假设一个旋转排序的数组其起始位置是未知的（比如`0 1 2 4 5 6 7` 可能变成是`4 5 6 7 0 1 2`）。你需要找到其中最小的元素。  
+你可以假设数组中不存在重复的元素。
+
+#### 分析：
+
+1. 二分法，思路和[62.搜索旋转排序数组](http://www.lintcode.com/zh-cn/problem/search-in-rotated-sorted-array/)是一样的，我们主要来判断mid这个位置左右是不是均有序的。
