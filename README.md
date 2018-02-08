@@ -149,6 +149,10 @@
 1. 回溯法
 2. 基本思路和代码都是和**135数字组合**一样的，不同的地方在于要去重。
 
+### [64.合并排序数组II](http://www.lintcode.com/zh-cn/problem/merge-sorted-array/)
+
+1. 直接用的归并排序的merge函数
+
 ### [152.组合](http://www.lintcode.com/zh-cn/problem/combinations/)
 
 1. 和**135数字组合一样**都是简单回溯法的应用
@@ -842,11 +846,17 @@ t=l-m
 
 ### [63.搜索排序旋转数组II](http://www.lintcode.com/zh-cn/problem/search-in-rotated-sorted-array-ii/)
 
+#### 题目：
+
+跟进[62.搜索旋转排序数组](http://www.lintcode.com/zh-cn/problem/search-in-rotated-sorted-array/)，假如有重复元素又将如何？  
+是否会影响运行时间复杂度？  
+如何影响？  
+为何会影响？  
+写出一个函数判断给定的目标值是否出现在数组中。
+
+#### 分析：
+
 1. 代码同62搜索旋转排序数组一样
-
-### [64.合并排序数组II](http://www.lintcode.com/zh-cn/problem/merge-sorted-array/)
-
-1. 直接用的归并排序的merge函数
 
 ### [159. 寻找旋转排序数组中的最小值](http://www.lintcode.com/zh-cn/problem/find-minimum-in-rotated-sorted-array/)
 
@@ -858,3 +868,4 @@ t=l-m
 #### 分析：
 
 1. 二分法，思路和[62.搜索旋转排序数组](http://www.lintcode.com/zh-cn/problem/search-in-rotated-sorted-array/)是一样的，我们主要来判断mid这个位置左右是不是均有序的。
+2. 关键是如何判断mid左右是否有序，我们直接和最左端和最右端的元素比较就行。

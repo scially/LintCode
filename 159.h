@@ -12,6 +12,7 @@ public:
             
             int mid = l + ( r- l) / 2;
             // 右边有序
+            // <= 是为了防止[2 1]这种情况
             if(nums[mid] <= nums[r-1]){
                 __min = min(__min, nums[mid]);
                 r = mid;
