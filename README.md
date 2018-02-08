@@ -869,3 +869,15 @@ t=l-m
 
 1. 二分法，思路和[62.搜索旋转排序数组](http://www.lintcode.com/zh-cn/problem/search-in-rotated-sorted-array/)是一样的，我们主要来判断mid这个位置左右是不是均有序的。
 2. 关键是如何判断mid左右是否有序，我们直接和最左端和最右端的元素比较就行。
+
+### [160. 寻找旋转排序数组中的最小值 II](http://www.lintcode.com/zh-cn/problem/find-minimum-in-rotated-sorted-array-ii/)
+
+#### 题目：
+
+假设一个旋转排序的数组其起始位置是未知的（比如`0 1 2 4 5 6 7` 可能变成是`4 5 6 7 0 1 2`）。你需要找到其中最小的元素。  
+数组中可能存在重复的元素。
+
+#### 分析：
+
+1. 二分法，思路和[159. 寻找旋转排序数组中的最小值](http://www.lintcode.com/zh-cn/problem/find-minimum-in-rotated-sorted-array/)是一样的
+2. 唯一的不同在31行代码处，加入了去重。
