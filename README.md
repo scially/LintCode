@@ -894,5 +894,5 @@ t=l-m
 
 #### 分析：
 
-1. 二分法，思路和[159. 寻找旋转排序数组中的最小值](http://www.lintcode.com/zh-cn/problem/find-minimum-in-rotated-sorted-array/)是一样的
-2. 唯一的不同在31行代码处，加入了去重。
+1. 动态规划。
+2. 二分法，实际上就是在循环的过程中我们用到了二分法。这种方法有点类似于贪心，就是我们每次选一个数，让这个数刚刚数组的前一个数，这样可以为后面的数留出更多选择余地，如何选择这个数？就是[60.搜索插入位置](http://www.lintcode.com/zh-cn/problem/search-insert-position/)的思路，我们搜索插入位置，然后将这个位置的数替换掉。
