@@ -768,6 +768,16 @@ t=l-m
 
 1. 和[202. 线段树的查询](http://www.lintcode.com/zh-cn/problem/segment-tree-query/)基本一样的思路，只需要在递归基的时候加一行赋值代码即可。
 
+### [248. 统计比给定整数小的数的个数](http://www.lintcode.com/zh-cn/problem/count-of-smaller-number/)
+
+#### 题目：
+
+给定一个整数数组 （下标由 `0` 到 `n-1`，其中 `n` 表示数组的规模，数值范围由 `0` 到 `10000`），以及一个 查询列表。对于每一个查询，将会给你一个整数，请你返回该数组中小于给定整数的元素的数量。
+
+#### 分析：
+
+1. 这道题实际上就是将线段树综合起来，可以在此重新写一遍线段树的构造，修改，查询。
+
 ### [726. 验证满二叉树](http://www.lintcode.com/zh-cn/problem/check-full-binary-tree/)
 
 #### 题目：
@@ -890,8 +900,7 @@ t=l-m
 
 #### 说明：
 
-最长上升子序列的定义：最长上升子序列问题是在一个无序的给定序列中找到一个尽可能长的由低到高排列的子序列，这种子序列不一定是连续的或者唯一的。[WIKI百科]
-(https://en.wikipedia.org/wiki/Longest_increasing_subsequence)
+最长上升子序列的定义：最长上升子序列问题是在一个无序的给定序列中找到一个尽可能长的由低到高排列的子序列，这种子序列不一定是连续的或者唯一的。[WIKI百科](https://en.wikipedia.org/wiki/Longest_increasing_subsequence)
 
 #### 分析：
 
