@@ -799,8 +799,7 @@ t=l-m
 
 #### 分析：
 
-1. 基本思路二分法
-2. 二分法并不难，但是关键的地方在于当找不到元素的时候如何正确的返回比target大的最小值的元素。在循环过程中不断的向target逼近。
+基本思路二分法，二分法并不难，但是关键的地方在于当找不到元素的时候如何正确的返回比target大的最小值的元素。在循环过程中不断的向target逼近。
 
 ### [61.搜索区间](http://www.lintcode.com/zh-cn/problem/search-for-a-range/)
 
@@ -825,7 +824,7 @@ t=l-m
 
 #### 分析：
 
-1. 先对行首元素进行一次二分，找到插入位置[60.搜索插入位置](http://www.lintcode.com/zh-cn/problem/search-insert-position/)，然后对该行进行二分。
+先对行首元素进行一次二分，找到插入位置[60.搜索插入位置](http://www.lintcode.com/zh-cn/problem/search-insert-position/)，然后对该行进行二分。
 
 ### [662. 猜数游戏](http://www.lintcode.com/zh-cn/problem/guess-number-game/)
 
@@ -838,7 +837,7 @@ t=l-m
 
 #### 分析：
 
-1. 二分法，注意这里不能按照往常使用[l,r)，可能会溢出。
+二分法，注意这里不能按照往常使用[l,r)，可能会溢出。
 
 ### [141. x的平方根](http://www.lintcode.com/zh-cn/problem/sqrtx/)
 
@@ -848,7 +847,7 @@ t=l-m
 
 #### 分析：
 
-1. 二分法，注意溢出。
+二分法，注意溢出。
 
 ### [62.搜索旋转排序数组](http://www.lintcode.com/zh-cn/problem/search-in-rotated-sorted-array/)
 
@@ -866,7 +865,7 @@ t=l-m
 
 #### 分析：
 
-1. 代码同62搜索旋转排序数组一样
+代码同62搜索旋转排序数组一样
 
 ### [159. 寻找旋转排序数组中的最小值](http://www.lintcode.com/zh-cn/problem/find-minimum-in-rotated-sorted-array/)
 
