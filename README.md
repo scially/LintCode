@@ -766,7 +766,7 @@ t=l-m
 
 #### 分析：
 
-1. 和[202. 线段树的查询](http://www.lintcode.com/zh-cn/problem/segment-tree-query/)基本一样的思路，只需要在递归基的时候加一行赋值代码即可。
+和[202. 线段树的查询](http://www.lintcode.com/zh-cn/problem/segment-tree-query/)基本一样的思路，只需要在递归基的时候加一行赋值代码即可。
 
 ### [248. 统计比给定整数小的数的个数](http://www.lintcode.com/zh-cn/problem/count-of-smaller-number/)
 
@@ -776,7 +776,7 @@ t=l-m
 
 #### 分析：
 
-1. 这道题实际上就是将线段树综合起来，可以在此重新写一遍线段树的构造，修改，查询。
+这道题实际上就是将线段树综合起来，可以在此重新写一遍线段树的构造，修改，查询。
 
 ### [726. 验证满二叉树](http://www.lintcode.com/zh-cn/problem/check-full-binary-tree/)
 
