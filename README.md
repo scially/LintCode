@@ -1045,7 +1045,7 @@ S = `3[2[ad]3[pf]]xyz` 返回 `adadpfpfpfadadpfpfpfadadpfpfpfxyz`
 
 要注意pop的情况，当栈pop的时候最小值可能会发生变化,所以我这里是在引入一个stack，每次push的时候，我都会判断一下这个值与之前最小值，然后把最小值push进去，同样，在pop的时候，两个栈同时都pop，也就是对于每个元素，新引入这个栈都会保存一个到当前元素为止最小的元素。
 
-### [424. 逆波兰表达式求值](http://www.lintcode.com/zh-cn/problem/min-stack/)
+### [424. 逆波兰表达式求值](http://www.lintcode.com/zh-cn/problem/evaluate-reverse-polish-notation/)
 
 #### 题目
 
@@ -1064,3 +1064,21 @@ S = `3[2[ad]3[pf]]xyz` 返回 `adadpfpfpfadadpfpfpfadadpfpfpfxyz`
 #### 分析
 
 按照逆波兰表达式顺序依次计算即可。
+
+### [528. 摊平嵌套的列表](http://www.lintcode.com/zh-cn/problem/flatten-nested-list-iterator/)
+
+#### 题目
+
+给你一个嵌套的列表，实现一个迭代器将其摊平。  
+一个列表的每个元素可能是整数或者一个列表。
+
+#### 样例
+
+给出列表 `[[1,1],2,[1,1]]`，经过迭代器之后返回 `[1,1,2,1,1]`。  
+给出列表 `[1,[4,[6]]]`，经过迭代器之后返回 `[1,4,6]`。
+
+#### 挑战
+
+#### 分析
+
+递归。
