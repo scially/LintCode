@@ -322,11 +322,16 @@ t=l-m
 
 ### [104.合并k个排序链表](http://www.lintcode.com/zh-cn/problem/merge-k-sorted-lists/)
 
-**题目：** 合并k个排序链表，并且返回合并后的排序链表。尝试分析和描述其复杂度。例如给出3个排序链表```[2->4->null,null,-1->null]```，返回 ```-1->2->4->null```.  
-**分析：**
+#### 题目
 
-1. 直接两个两个merge即可，应该会有其他方法。
-2. 这样做时间复杂度是o(n2)
+合并k个排序链表，并且返回合并后的排序链表。尝试分析和描述其复杂度。例如给出3个排序链表```[2->4->null,null,-1->null]```，返回 ```-1->2->4->null```.  
+
+#### 挑战
+
+#### 分析
+
+1. 直接两个两个mrge即可。
+2. 使用最小堆，首先将每个列表的头结点加入堆中，然后每次取出最小元素，然后将这个取出这个结点的下一个结点（如果不为NULL）加入到堆中，直到最后堆为空，结束循环。
 
 ### [112.删除排序链表中的重复元素](http://www.lintcode.com/zh-cn/problem/remove-duplicates-from-sorted-list/)
 
@@ -1082,3 +1087,44 @@ S = `3[2[ad]3[pf]]xyz` 返回 `adadpfpfpfadadpfpfpfadadpfpfpfxyz`
 #### 分析
 
 递归。
+
+### [堆](http://www.lintcode.com/problem/?tag=heap)
+
+### [486. 合并k个排序数组](http://www.lintcode.com/zh-cn/problem/merge-k-sorted-arrays/)
+
+#### 题目
+
+将 `k` 个排序数组合并为一个大的排序数组。
+
+#### 样例
+
+给出下面的 3 个排序数组：
+
+```c
+
+[
+  [1, 3, 5, 7],
+  [2, 4, 6],
+  [0, 8, 9, 10, 11]
+]
+
+```
+
+合并后的大数组应为：
+
+```c
+
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+
+```
+
+#### 挑战
+
+在 `O(N log k)` 的时间复杂度内完成：
+
+* `N` 是所有数组包含的整数个数。
+* `k` 是数组的个数。
+
+#### 分析
+
+和[104.合并k个排序链表](http://www.lintcode.com/zh-cn/problem/merge-k-sorted-lists/)一样的思路。
