@@ -1090,6 +1090,8 @@ S = `3[2[ad]3[pf]]xyz` 返回 `adadpfpfpfadadpfpfpfadadpfpfpfxyz`
 
 ### [堆](http://www.lintcode.com/problem/?tag=heap)
 
+这部分的题目我们可以用STL中的priority_queue来做，或者自己写MinHeap来处理。
+
 ### [486. 合并k个排序数组](http://www.lintcode.com/zh-cn/problem/merge-k-sorted-arrays/)
 
 #### 题目
@@ -1128,3 +1130,52 @@ S = `3[2[ad]3[pf]]xyz` 返回 `adadpfpfpfadadpfpfpfadadpfpfpfxyz`
 #### 分析
 
 和[104.合并k个排序链表](http://www.lintcode.com/zh-cn/problem/merge-k-sorted-lists/)一样的思路。
+
+### [544. 前K大数](http://www.lintcode.com/zh-cn/problem/top-k-largest-numbers/)
+
+#### 题目
+
+在一个数组中找到前K大的数
+
+#### 样例
+
+给出 `[3,10,1000,-99,4,100], k = 3`.  
+返回 `[1000, 100, 10]`
+
+#### 挑战
+
+#### 分析
+
+可以用STL中的priority_queue来做，或者自己写MinHeap来处理。
+
+### [130. 堆化](http://www.lintcode.com/zh-cn/problem/heapify/)
+
+#### 题目
+
+给出一个整数数组，堆化操作就是把它变成一个最小堆数组。  
+对于堆数组A，`A[0]`是堆的根，并对于每个`A[i]`，`A [i * 2 + 1]`是`A[i]`的左儿子并且`A[i * 2 + 2]`是`A[i]`的右儿子。
+
+#### 说明
+
+**什么是堆？**  
+
+* 堆是一种数据结构，它通常有三种方法：push， pop 和 top。其中，“push”添加新的元素进入堆，“pop”删除堆中最小/最大元素，“top”返回堆中最小/最大元素。
+
+**什么是堆化？**  
+
+* 把一个无序整数数组变成一个堆数组。如果是最小堆，每个元素`A[i]`，我们将得到`A[i * 2 + 1] >= A[i]`和`A[i * 2 + 2] >= A[i]`  
+
+**如果有很多种堆化的结果？**  
+返回其中任何一个。
+
+#### 样例
+
+给出 `[3,2,1,4,5]`，返回`[1,2,3,4,5]` 或者任何一个合法的堆数组
+
+#### 挑战
+
+`O(n)`的时间复杂度完成堆化
+
+#### 分析
+
+这里要注意的是我们只需要从最后一个叶子节点的父亲节点开始依次进行shiftDown即可。
