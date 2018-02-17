@@ -1179,3 +1179,98 @@ S = `3[2[ad]3[pf]]xyz` 返回 `adadpfpfpfadadpfpfpfadadpfpfpfxyz`
 #### 分析
 
 这里要注意的是我们只需要从最后一个叶子节点的父亲节点开始依次进行shiftDown即可。
+
+### [471. 最高频的K个单词](http://www.lintcode.com/zh-cn/problem/top-k-frequent-words/)
+
+#### 题目
+
+给一个单词列表，求出这个列表中出现频次最高的K个单词。
+
+```c
+注意事项:
+你需要按照单词的词频排序后输出，越高频的词排在越前面。如果两个单词出现的次数相同，则词典序小的排在前面。
+
+```
+
+#### 样例
+
+给出单词列表：
+
+```c
+
+[
+    "yes", "lint", "code",
+    "yes", "code", "baby",
+    "you", "baby", "chrome",
+    "safari", "lint", "code",
+    "body", "lint", "code"
+]
+
+```
+
+如果 `k = 3`, 返回 `["code", "lint", "baby"]`。
+如果 `k = 4`, 返回 `["code", "lint", "baby", "yes"]`。
+
+#### 挑战
+
+用 `O（n log k)`的时间和` O(n)`的额外空间完成。  
+如果你能够用 `O(n) `的时间和` O(k) `的额外空间，那就更好不过了。
+
+#### 分析
+
+和[544. 前K大数](http://www.lintcode.com/zh-cn/problem/top-k-largest-numbers/)一样的思路，我们只需要自己定义一个比较函数即可。
+
+### [545. 前K大数 II ](http://www.lintcode.com/zh-cn/problem/top-k-largest-numbers-ii/)
+
+#### 题目
+
+实现一个数据结构，提供下面两个接口
+
+1. `add(number)` 添加一个元素
+2. `topk()` 返回前K大的数
+
+#### 样例
+
+```c++
+
+s = new Solution(3);
+>> create a new data structure.
+s.add(3)
+s.add(10)
+s.topk()
+>> return [10, 3]
+s.add(1000)
+s.add(-99)
+s.topk()
+>> return [1000, 10, 3]
+s.add(4)
+s.topk()
+>> return [1000, 10, 4]
+s.add(100)
+s.topk()
+>> return [1000, 100, 10]
+
+```
+
+#### 挑战
+
+#### 分析
+
+就是将heapify、shiftDown、shiftUp综合到一起。
+
+### [612. K个最近的点](http://www.lintcode.com/zh-cn/problem/k-closest-points/)
+
+#### 题目
+
+给定一些 `points` 和一个 `origin`，从 `points` 中找到 `k` 个离 `origin` 最近的点。按照距离由小到大返回。如果两个点有相同距离，则按照`x`值来排序；若`x`值也相同，就再按照`y`值排序。
+
+#### 样例
+
+给出 `points = [[4,6],[4,7],[4,4],[2,5],[1,1]]`, `origin = [0, 0], k = 3`  
+返回 `[[1,1],[2,5],[4,4]]`
+
+#### 挑战
+
+#### 分析
+
+和[471. 最高频的K个单词](http://www.lintcode.com/zh-cn/problem/top-k-frequent-words/)一样的思路。
