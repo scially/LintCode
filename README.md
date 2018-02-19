@@ -1343,3 +1343,74 @@ s.topk()
 #### 分析
 
 ？
+
+### [字典树](http://www.lintcode.com/problem/?tag=trie)
+
+### [401. 排序矩阵中的从小到大第k个数](http://www.lintcode.com/zh-cn/problem/implement-trie/)
+
+#### 题目
+
+实现一个 `Trie`，包含 `insert`, `search`, 和 `startsWith` 这三个方法。
+
+```c
+
+注意事项
+你可以假设所有的输入都是小写字母a-z。
+
+```
+
+#### 样例
+
+```c++
+
+insert("lintcode")
+search("code") // return false
+startsWith("lint") // return true
+startsWith("linterror") // return false
+insert("linterror")
+search("lintcode) // return true
+startsWith("linterror") // return true
+
+```
+
+
+#### 挑战
+
+#### 分析
+
+单词树的基本实现，参考[字典树定义](https://www.cnblogs.com/TheRoadToTheGold/p/6290732.html)
+
+### [473. 单词的添加与查找](http://www.lintcode.com/zh-cn/problem/add-and-search-word/)
+
+#### 题目
+
+设计一个包含下面两个操作的数据结构：`addWord(word)`, `search(word)`  
+addWord(word)会在数据结构中添加一个单词。而`search(word)`则支持普通的单词查询或是只包含`.`和`a-z`的简易正则表达式的查询。  
+一个 `.` 可以代表一个任何的字母。  
+
+```c
+
+注意事项
+你可以假设所有的输入都是小写字母a-z。
+
+```
+
+#### 样例
+
+```c++
+
+addWord("bad")
+addWord("dad")
+addWord("mad")
+search("pad")  // return false
+search("bad")  // return true
+search(".ad")  // return true
+search("b..")  // return true
+
+```
+
+#### 挑战
+
+#### 分析
+
+这里的关键是`.`的处理，这里可以直接递归搜索。
