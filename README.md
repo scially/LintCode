@@ -1090,6 +1090,8 @@ S = `3[2[ad]3[pf]]xyz` 返回 `adadpfpfpfadadpfpfpfadadpfpfpfxyz`
 
 ### [堆](http://www.lintcode.com/problem/?tag=heap)
 
+### [优先队列](http://www.lintcode.com/problem/?tag=priority-queue)
+
 这部分的题目我们可以用STL中的priority_queue来做，或者自己写MinHeap来处理。
 
 ### [486. 合并k个排序数组](http://www.lintcode.com/zh-cn/problem/merge-k-sorted-arrays/)
@@ -1275,3 +1277,69 @@ s.topk()
 #### 分析
 
 和[471. 最高频的K个单词](http://www.lintcode.com/zh-cn/problem/top-k-frequent-words/)一样的思路。
+
+### [808. 影际网络](http://www.lintcode.com/zh-cn/problem/movie-network/)
+
+#### 题目
+
+给一些`movie`（编号从0开始）的`rating`和他们的联系关系，联系关系可以传递(`a`和`b`有联系，`b`和`c`有联系，`a`和`c`也认为有联系)。给出每个`movie`的直接联系`list`。再给定一个`movie`编号为`S`，找到和`S`相联系的`movie`中的`rating`最高的`K`个`movie`（当与`S`相联系的`movie`少于`K`个时，输出所有。输出答案时可以按照任意次序，注意联系`movie`并不包括`S`。）
+
+```c
+
+注意事项:
+  movie个数 n <= 20000。
+  保证编号为0 ~ n-1。（n为movie个数)。
+  保证联系的边，2个编号都属于0 ~ n-1。
+  保证总边数 m <= 100000。
+  保证每个movie的rating都为int范围内的整数，且互不相同。
+
+```
+
+#### 样例
+
+给出 ratingArray = `[10,20,30,40]`, contactRelationship = `[[1,3],[0,2],[1],[0]]`, `S = 0`, `K = 2`，返回`[2,3]`。
+
+```python
+
+解释:
+在contactRelationship中，0号与[1,3]有联系，1号与[0,2]有联系，2号与[1]有联系，3号与[0]有联系。
+所以最终和0号movie相联系的有[1,2,3]，按他们的rating从高到低排列为[3,2,1]，所以输出[2,3]。
+
+```
+
+#### 挑战
+
+#### 分析
+
+这道题给的G可以作为图，我要找到与指定点直接连接或者间接连接的所有点，这里可以用DFS也可以使用BFS，然后再遍历图的过程中将所有的值加入优先队列中，最后取出前k个即可。
+
+### [401. 排序矩阵中的从小到大第k个数](http://www.lintcode.com/zh-cn/problem/kth-smallest-number-in-sorted-matrix/)
+
+#### 题目
+
+在一个排序矩阵中找从小到大的第 k 个整数。  
+排序矩阵的定义为：每一行递增，每一列也递增。
+
+#### 样例
+
+给出 `k = 4` 和一个排序矩阵：
+
+```python
+
+[
+  [1 ,5 ,7],
+  [3 ,7 ,8],
+  [4 ,8 ,9],
+]
+
+```
+
+返回 `5`。
+
+#### 挑战
+
+使用`O(k log n)`的方法，`n`为矩阵的宽度和高度中的最大值。
+
+#### 分析
+
+？

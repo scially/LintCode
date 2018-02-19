@@ -31,7 +31,7 @@ public:
         // write your code here
         priority_queue<pair<Point,int>, vector<pair<Point,int>>, decltype(compare)*> heap(compare);
         for(int i = 0; i < points.size(); i++){
-            cout << distance2(points[i], origin) << endl;
+            //cout << distance2(points[i], origin) << endl;
             heap.push(pair<Point,int>(points[i], distance2(points[i], origin)));
         }
         vector<Point> r;
