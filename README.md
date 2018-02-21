@@ -462,7 +462,9 @@ t=l-m
     2. 不相邻时
 2. 注意有结点在head的位置时，需要增加哨兵结点处理
 
-## [二叉树](http://www.lintcode.com/problem/?tag=binary-tree)
+### [二叉树](http://www.lintcode.com/problem/?tag=binary-tree)
+
+### [线段树](http://www.lintcode.com/problem/?tag=segment-tree)
 
 ### [66. 二叉树的前序遍历](http://www.lintcode.com/zh-cn/problem/binary-tree-preorder-traversal/)
 
@@ -772,6 +774,223 @@ t=l-m
 #### 分析：
 
 和[202. 线段树的查询](http://www.lintcode.com/zh-cn/problem/segment-tree-query/)基本一样的思路，只需要在递归基的时候加一行赋值代码即可。
+
+### [248. 统计比给定整数小的数的个数](http://www.lintcode.com/zh-cn/problem/count-of-smaller-number/)
+
+#### 题目：
+
+给定一个整数数组 （下标由 `0` 到 `n-1`，其中 `n` 表示数组的规模，数值范围由 `0` 到 `10000`），以及一个 查询列表。对于每一个查询，将会给你一个整数，请你返回该数组中小于给定整数的元素的数量。
+
+#### 分析：
+
+这道题实际上就是将线段树综合起来，可以在此重新写一遍线段树的构造，修改，查询。
+
+### [205. 区间最小数](http://www.lintcode.com/zh-cn/problem/interval-minimum-number/)
+
+#### 题目
+
+给定一个整数数组（下标由 `0` 到 `n-1`，其中 `n` 表示数组的规模），以及一个查询列表。每一个查询列表有两个整数 `[start, end]`。 对于每个查询，计算出数组中从下标 `start` 到 `end` 之间的数的最小值，并返回在结果列表中。
+
+#### 样例
+
+对于数组 `[1,2,7,8,5]`， 查询 `[(1,2),(0,4),(2,4)]`，返回 `[2,1,5]`
+
+#### 挑战
+
+每次查询在O(logN)的时间内完成
+
+#### 分析
+
+利用线段树查询。
+
+#### 代码
+
+```c++
+
+/**
+ * Definition of Interval:
+ * class Interval {
+ *     int start, end;
+ *     Interval(int start, int end) {
+ *         this->start = start;
+ *         this->end = end;
+ *     }
+ * }
+ */
+ 
+struct SegmentNode{
+public:
+    int start, end, min;
+    SegmentNode *left, *right;
+    SegmentNode(int start, int end, int min) {
+        this->start = start;
+        this->end = end;
+        this->min = min;
+        this->left = this->right = nullptr;
+    }
+};
+
+class Solution {
+public:
+    /*
+     * @param A: An integer array
+     * @param queries: An query list
+     * @return: The result list
+     */
+    vector<int> intervalMinNumber(vector<int> &A, vector<Interval> &queries) {
+        // write your code here
+        SegmentNode *root = build(0, A.size() - 1, A);
+        // for(int i = 0; i < A.size(); i++)
+        //     insert(root, i, A[i]);
+
+        vector<int> r;
+        for(int i = 0; i < queries.size(); i++){
+            r.push_back(query(root, queries[i].start, queries[i].end));
+        }
+        
+        return r;
+    }
+private:
+    SegmentNode *build(int start, int end, const vector<int> &A){
+        if(start == end){
+            return new SegmentNode(start, end, A[start]);
+        }
+        
+        SegmentNode *root = new SegmentNode(start, end, INT_MAX);
+        int mid = start + (end - start) / 2;
+        root->left = build(start, mid, A);
+        root->right= build(mid+1, end, A);
+        root->min  = min(root->left->min, root->right->min);
+        return root;
+    }
+    
+    int query(SegmentNode *root, int start, int end){
+        if(root == nullptr) return INT_MAX;
+        if(start < root->start) start = root->start;
+        if(end   > root->end)   end   = root->end;
+        
+        if(start == root->start && end == root->end){
+            return root->min;
+        }
+        
+        int mid = root->start + (root->end - root->start) / 2;
+        int lmin = INT_MAX, rmin = INT_MAX;
+        if(start >= mid + 1){
+            rmin = query(root->right, start, end);
+        }
+        else if(end <= mid){
+            lmin = query(root->left, start, end);
+        }
+        else{
+            lmin = query(root->left, start, mid);
+            rmin = query(root->right,mid+1, end);
+        }
+        return min(lmin, rmin);
+    }
+};
+
+```
+### [206. 区间求和 I](http://www.lintcode.com/zh-cn/problem/interval-sum/)
+
+#### 题目
+
+给定一个整数数组（下标由 `0` 到 `n-1`，其中 `n` 表示数组的规模），以及一个查询列表。每一个查询列表有两个整数 `[start, end]` 。 对于每个查询，计算出数组中从下标 `start` 到 `end` 之间的数的总和，并返回在结果列表中。
+
+#### 样例
+
+对于数组 `[1,2,7,8,5]`，查询`[(1,2),(0,4),(2,4)]`, 返回 `[9,23,20]`
+
+#### 挑战
+
+每次查询在O(logN)的时间内完成
+
+#### 分析
+
+利用线段树。
+
+#### 代码
+
+```c++
+
+/**
+ * Definition of Interval:
+ * classs Interval {
+ *     int start, end;
+ *     Interval(int start, int end) {
+ *         this->start = start;
+ *         this->end = end;
+ *     }
+ */
+
+struct SegmentNode{
+    int start, end;
+    long long count;
+    SegmentNode *left, *right;
+    SegmentNode(int start, int end, long long count = 0){
+        this->start = start;
+        this->end   = end;
+        this->count = count;
+        this->left  = nullptr;
+        this->right = nullptr;
+    }
+};
+
+class Solution {
+public:
+    /*
+     * @param A: An integer list
+     * @param queries: An query list
+     * @return: The result list
+     */
+    vector<long long> intervalSum(vector<int> &A, vector<Interval> &queries) {
+        // write your code here
+        SegmentNode *root = build(0, A.size() - 1, A);
+        vector<long long> r;
+        for(int i = 0; i < queries.size(); i++){
+            r.push_back(query(root, queries[i].start, queries[i].end));
+        }
+        return r;
+    }
+    
+private:
+    SegmentNode *build(int start, int end, const vector<int> &A){
+        if(start == end){
+            return new SegmentNode(start, end, A[start]);
+        }
+        
+        SegmentNode *root = new SegmentNode(start, end);
+        int mid = start + (end - start) / 2;
+        root->left = build(start, mid, A);
+        root->right= build(mid+1, end, A);
+        root->count= root->left->count + root->right->count;
+        return root;
+    }
+    
+    long long query(SegmentNode *root, int start, int end){
+        if(root == nullptr) return 0;
+        if(start < root->start) start = root->start;
+        if(end   > root->end)   end   = root->end;
+        if(root->start == start  && root->end == end){
+            return root->count;
+        }
+        
+        long long l = 0, r = 0;
+        int mid = root->start + (root->end - root->start) / 2;
+        if(start > mid){
+            r = query(root->right, start, end);
+        }
+        else if(end <= mid){
+            l = query(root->left, start, end);
+        }
+        else{
+            l = query(root->left, start, mid);
+            r = query(root->right,mid+1, end);
+        }
+        return l+ r;
+    }
+};
+
+```
 
 ### [248. 统计比给定整数小的数的个数](http://www.lintcode.com/zh-cn/problem/count-of-smaller-number/)
 
