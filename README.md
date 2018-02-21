@@ -890,6 +890,7 @@ private:
 };
 
 ```
+
 ### [206. 区间求和 I](http://www.lintcode.com/zh-cn/problem/interval-sum/)
 
 #### 题目
@@ -987,6 +988,203 @@ private:
             r = query(root->right,mid+1, end);
         }
         return l+ r;
+    }
+};
+
+```
+
+### [439. 线段树的构造 II](http://www.lintcode.com/zh-cn/problem/segment-tree-build-ii/)
+
+#### 题目
+
+线段树是一棵二叉树，他的每个节点包含了两个额外的属性`start`和`end`用于表示该节点所代表的区间。`start`和`end`都是整数，并按照如下的方式赋值:
+
+1. 根节点的 start 和 end 由 build 方法所给出。
+2. 对于节点 A 的左儿子，有 start=A.left, end=(A.left + A.right) / 2。
+3. 对于节点 A 的右儿子，有 start=(A.left + A.right) / 2 + 1, end=A.right。
+4. 如果 start 等于 end, 那么该节点是叶子节点，不再有左右儿子。
+5. 对于给定数组设计一个build方法，构造出线段树
+
+#### 样例
+
+给出`[3,2,1,4]`，线段树将被这样构造
+
+```c
+               [0,  3] (max = 4)
+                  /            \
+        [0,  1] (max = 3)     [2, 3]  (max = 4)
+        /        \               /             \
+[0, 0](max = 3)  [1, 1](max = 2)[2, 2](max = 1) [3, 3] (max = 4)
+
+```
+
+#### 挑战
+
+#### 分析
+
+利用线段树。
+
+#### 代码
+
+```c++
+
+/**
+ * Definition of SegmentTreeNode:
+ * class SegmentTreeNode {
+ * public:
+ *     int start, end, max;
+ *     SegmentTreeNode *left, *right;
+ *     SegmentTreeNode(int start, int end, int max) {
+ *         this->start = start;
+ *         this->end = end;
+ *         this->max = max;
+ *         this->left = this->right = NULL;
+ *     }
+ * }
+ */
+
+
+class Solution {
+public:
+    /*
+     * @param A: a list of integer
+     * @return: The root of Segment Tree
+     */
+    SegmentTreeNode * build(vector<int> &A) {
+        // write your code here
+        return build(0, A.size() - 1, A);
+    }
+    SegmentTreeNode *build(int start, int end, const vector<int> &A){
+        if(start > end){
+            return nullptr;
+        } 
+        if(start == end){
+            return new SegmentTreeNode(start, end, A[start]);
+        }
+        
+        SegmentTreeNode *root = new SegmentTreeNode(start, end, INT_MIN);
+        int mid = start + (end - start) / 2;
+        root->left = build(start, mid, A);
+        root->right= build(mid+1, end, A);
+        root->max = max(root->left->max, root->right->max);
+        return root;
+    }
+};
+
+```
+
+### [751. 约翰的生意](http://www.lintcode.com/zh-cn/problem/johns-business/)
+
+#### 题目
+
+在一条数轴上，有`n`个城市，编号从`0 ~ n – 1` , 约翰打算在这`n`个城市做点生意，他对`Armani`的一批货物感兴趣，每个城市对于这批货物都有一个价格`prices[i]`。对于城市x,约翰可从城市编号为`[x - k, x + k`]购买货物，然后卖到城市x,问约翰在每个城市最多能赚到多少钱？
+
+```c
+注意事项
+prices.length 范围为[2, 100000], k <= 100000。
+```
+
+#### 样例
+
+给出 `prices = [1, 3, 2, 1, 5]`, `k = 2`,返回 `[0, 2, 1, 0, 4]`。
+
+```c
+解释：
+i = 0，约翰可去的城市有0~2因为1、2号城市的价格比0号城市的价格高，所以赚不了钱，即 ans[0] = 0。
+i = 1，可去的城市有0~3，可以从0号或者3号城市购买货物赚取的差价最大，即ans[1] = 2。
+i = 2，可去的城市有0~4，显然从3号城市购买货物赚取的差价最大，即ans[2] = 1。
+i = 3，可去的城市有1~4，没有其他城市的价格比3号城市价格低，所以赚不了钱，ans[3] = 0。
+i = 4，可去的城市有2~4，从3号城市购买货物赚取的差价最大，即ans[4] = 4。
+```
+
+给出 `prices = [1, 1, 1, 1, 1]`, `k = 1`, 返回 `[0, 0, 0, 0, 0]`。
+
+```c
+解释：
+所有城市价格都一样，所以不能赚到钱，即所有的ans都为0。
+```
+
+#### 挑战
+
+#### 分析
+
+利用线段树。
+
+#### 代码
+
+```c++
+
+struct SegmentNode{
+    int start, end;
+    int min;
+    SegmentNode *left, *right;
+    SegmentNode(int start, int end, int min){
+        this->start = start;
+        this->end = end;
+        this->min = min;
+        this->left = nullptr;
+        this->right= nullptr;
+    }
+};
+
+class Solution {
+public:
+    /**
+     * @param A: The prices [i]
+     * @param k: 
+     * @return: The ans array
+     */
+    vector<int> business(vector<int> &A, int k) {
+        // Write your code here
+        SegmentNode *root = build(0, A.size()-1, A);
+        vector<int> r;
+        for(int i = 0; i <A.size(); i++){
+            int min_prices = query(root, i-k, i+k);
+            cout << min_prices << endl;
+            r.push_back(max(0, A[i] - min_prices));
+        }
+        return r;
+        
+    }
+private:
+    SegmentNode *build(int start, int end, const vector<int> &A){
+        if(start == end){
+            return new SegmentNode(start, end, A[start]);
+        }
+        
+        SegmentNode *root = new SegmentNode(start, end, INT_MAX);
+        int mid = start + (end - start) / 2;
+        root->left = build(start, mid, A);
+        root->right= build(mid+1, end, A);
+        
+        root->min = min(root->left->min, root->right->min);
+        return root;
+    }
+    
+    int query(SegmentNode *root, int start, int end){
+        if(root == nullptr) return INT_MAX;
+        
+        if(root->start == start && root->end == end){
+            return root->min;
+        }
+        
+        if(start < root->start) start = root->start;
+        if(end > root->end) end = root->end;
+        
+        int mid = root->start + (root->end - root->start) / 2;
+        int lmin = INT_MAX, rmin = INT_MAX;
+        if(start > mid){
+            rmin = query(root->right, start, end);
+        }
+        else if(end <= mid){
+            lmin = query(root->left, start, end);
+        }
+        else{
+            rmin = query(root->left, start, mid);
+            lmin = query(root->right, mid+1, end);
+        }
+        
+        return min(lmin, rmin);
     }
 };
 
