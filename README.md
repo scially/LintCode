@@ -1831,3 +1831,381 @@ search("b..")  // return true
 #### 分析
 
 这里的关键是`.`的处理，这里可以直接递归搜索。
+
+### [字符串](http://www.lintcode.com/problem/?tag=string)
+
+### [8. 旋转字符串](http://www.lintcode.com/zh-cn/problem/add-and-search-word/)
+
+#### 题目
+
+给定一个字符串和一个偏移量，根据偏移量旋转字符串(从左向右旋转)
+
+#### 样例
+
+对于字符串 `"abcdefg"`.
+
+```c++
+offset=0 => "abcdefg"
+offset=1 => "gabcdef"
+offset=2 => "fgabcde"
+offset=3 => "efgabcd"
+```
+
+#### 挑战
+
+在数组上原地旋转，使用O(1)的额外空间
+
+#### 分析
+
+涉及到字符串旋转的，我们可以分别在`[1,offset]`,`[offset+1,length]`,`[1,length]`进行三次reverse即可达到目的。
+
+#### 代码
+ 
+```c
+class Solution {
+public:
+    /**
+     * @param str: An array of char
+     * @param offset: An integer
+     * @return: nothing
+     */
+    void rotateString(string &str, int offset) {
+        // write your code here
+        if(str.size() == 0) return;
+        
+        offset = str.size() - 1 - offset % str.size();
+        reverseString(str, 0, offset);
+        reverseString(str, offset+1, str.size()-1);
+        reverseString(str, 0, str.size()-1);
+    }
+    
+    // reverse str[start, end]
+    void reverseString(string &str, int start, int end){
+        while(start < end){
+            swap(str[start++], str[end--]);
+        }
+    }
+};
+```
+
+### [53. 翻转字符串](http://www.lintcode.com/zh-cn/problem/reverse-words-in-a-string/)
+
+#### 题目
+
+给定一个字符串，逐个翻转字符串中的每个单词。
+
+#### 说明
+
+1. 单词的构成：无空格字母构成一个单词
+2. 输入字符串是否包括前导或者尾随空格？可以包括，但是反转后的字符不能包括
+3. 如何处理两个单词间的多个空格？在反转字符串中间空格减少到只含一个
+
+#### 样例
+
+#### 挑战
+
+#### 分析
+
+循环处理。
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /*
+     * @param s: A string
+     * @return: A string
+     */
+    string reverseWords(string &s) {
+        // write your code here
+        vector<string> v;
+        int i = 0, j = 0;
+        while(i < s.size()){
+            for(j = i; j < s.size() && s[j] == ' '; j++) {}
+            for(i = j; j < s.size() && s[j] != ' '; j++) {}
+            if(i >= s.size()) break;
+            v.push_back(s.substr(i, j-i));
+            i = j + 1;
+        }
+        // while(i < s.size() && s[i++] == ' ') {}
+        // if(i < s.size()) v.push_back(s.substr(i));
+        
+        ostringstream oss;
+        for(int i = v.size() - 1; i >= 0; i--){
+            oss << v[i];
+            if(i != 0) oss << ' ';
+        }
+        return oss.str();
+    }
+};
+```
+
+### [422. 最后一个单词的长度](http://www.lintcode.com/zh-cn/problem/length-of-last-word/)
+
+#### 题目
+
+给定一个字符串， 包含大小写字母、空格`' '`，请返回其最后一个单词的长度。  
+如果不存在最后一个单词，请返回`0` 。
+
+```
+注意事项
+一个单词的界定是，由字母组成，但不包含任何的空格。
+```
+
+#### 样例
+
+给定 `s = "Hello World"`，返回 `5`。
+
+#### 挑战
+
+#### 分析
+
+和[53. 翻转字符串](http://www.lintcode.com/zh-cn/problem/reverse-words-in-a-string/)思路一样
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /**
+     * @param s: A string
+     * @return: the length of last word
+     */
+    int lengthOfLastWord(string &s) {
+        // write your code here
+        int len = 0, i = 0, j = 0;
+        while(i < s.size()){
+            while(i < s.size() && s[i] == ' ') i++;
+            if(i >= s.size()) break;
+            for(j = i; j < s.size() && s[j] != ' ' ; j++) {}
+            len = j - i;
+            i = j + 1;
+        }
+        return len;
+    }
+};
+```
+
+### [671. 循环单词](http://www.lintcode.com/zh-cn/problem/rotate-words/)
+
+#### 题目
+
+The words are same rotate words if rotate the word to the right by loop, and get another. Count how many different rotate word sets in dictionary.  
+E.g. picture and turepic are same rotate words.
+
+```
+注意事项
+所有单词均为小写。
+```
+
+#### 样例
+
+Given `dict = ["picture", "turepic", "icturep", "word", "ordw", "lint"]`
+return `3`.  
+`"picture", "turepic", "icturep"` are same ratote words.  
+`"word", "ordw"` are same too.  
+`"lint"` is the third word that different from the previous two words.  
+
+#### 挑战
+
+#### 分析
+
+这里可以利用哈希表。
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /*
+     * @param words: A list of words
+     * @return: Return how many different rotate words
+     */
+    int countRotateWords(vector<string> words) {
+        // Write your code here
+        set<string> s;
+        for(int i = 0; i < words.size(); i++){
+            bool contain = false;
+            for(int j = 0; j < words[i].size(); j++){
+                auto iter = s.find(words[i].substr(j+1)+words[i].substr(0, j+1));
+                if(iter != s.end()){
+                    contain = true;
+                    break;
+                }
+            }
+            if(!contain)
+                s.insert(words[i]);
+        }
+        return s.size();
+    }
+};
+```
+
+### [211. 字符串置换](http://www.lintcode.com/zh-cn/problem/string-permutation/)
+
+#### 题目
+
+给定两个字符串，请设计一个方法来判定其中一个字符串是否为另一个字符串的置换。  
+置换的意思是，通过改变顺序可以使得两个字符串相等。
+
+#### 样例
+
+`"abc"` 为 `"cba"` 的置换。  
+`"aabc"` 不是 `"abcc"` 的置换。
+
+#### 挑战
+
+#### 分析
+
+因为均为英文字母，所以我们使用两个个char[128]数组，然后分别对字符串a、b进行遍历将对应字母的值加1，最后判断两个char数组是否相等。
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /**
+     * @param A: a string
+     * @param B: a string
+     * @return: a boolean
+     */
+    bool Permutation(string &A, string &B) {
+        // write your code here
+        int a[256]{}, b[256]{};
+
+        for(int i = 0; i < A.size(); i++){
+           a[A[i]]++; 
+        }
+        for(int i = 0; i < B.size(); i++){
+           b[B[i]]++; 
+        }
+        
+        for(int i = 0; i < 256; i++){
+            if(a[i] != b[i]) return false;
+        }
+        return true;
+    }
+};
+```
+
+### [702. 连接两个字符串中的不同字符](http://www.lintcode.com/zh-cn/problem/concatenated-string-with-uncommon-characters-of-two-strings/)
+
+#### 题目
+
+给出两个字符串, 你需要修改第一个字符串，将所有与第二个字符串中相同的字符删除, 并且第二个字符串中不同的字符与第一个字符串的不同字符连接
+
+#### 样例
+
+给出 `s1 = aacdb`, `s2 = gafd`  
+返回 `cbgf`  
+给出 `s1 = abcs`, `s2 = cxzca`;  
+返回 `bsxz`
+
+#### 挑战
+
+#### 分析
+
+和[211. 字符串置换](http://www.lintcode.com/zh-cn/problem/string-permutation/)思路一样，也是使用一个char[128]数组。
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /*
+     * @param : the 1st string
+     * @param : the 2nd string
+     * @return: uncommon characters of given strings
+     */
+    string concatenetedString(string &s1, string &s2) {
+        // write your code here
+        int ch[256]{};
+        for(int i = 0; i < s2.size(); i++){
+            ch[s2[i]] = 1;
+        }
+        ostringstream oss;
+        for(int i = 0; i < s1.size(); i++){
+            if(!ch[s1[i]]){ 
+                oss << s1[i];
+            }
+            else{
+                ch[s1[i]] ++;
+            }
+        }
+        for(int i = 0; i < s2.size(); i++){
+            if(ch[s2[i]] < 2) oss << s2[i];
+        }
+        return oss.str();
+    }
+};
+```
+
+### [133. 最长单词](http://www.lintcode.com/zh-cn/problem/longest-words/)
+
+#### 题目
+
+给一个词典，找出其中所有最长的单词。
+
+#### 样例
+
+在词典
+
+```c
+{
+  "dog",
+  "google",
+  "facebook",
+  "internationalization",
+  "blabla"
+}
+```
+
+中, 最长的单词集合为 `["internationalization"]`
+
+在词典
+
+```c
+{
+  "like",
+  "love",
+  "hate",
+  "yes"
+}
+```
+
+中，最长的单词集合为 `["like", "love", "hate"]`
+
+#### 挑战
+
+遍历两次的办法很容易想到，如果只遍历一次你有没有什么好办法？
+
+#### 分析
+
+遍历一遍即可，每次遇到更长的字符串就将此前存储的上个最长的字符串集合清空，重新添加。
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /*
+     * @param dictionary: an array of strings
+     * @return: an arraylist of strings
+     */
+    vector<string> longestWords(vector<string> &dictionary) {
+        // write your code here
+        vector<string> v;
+        int max_length = 0;
+        for(int i = 0; i < dictionary.size(); i++){
+            if(dictionary[i].size() > max_length){
+                max_length = dictionary[i].size();
+                v.clear();
+            }
+            if(dictionary[i].size() == max_length)
+                v.push_back(dictionary[i]);
+        }
+        return v;
+    }
+};
+```
