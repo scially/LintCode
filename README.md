@@ -2209,3 +2209,216 @@ public:
     }
 };
 ```
+
+### [212. 空格替换](http://www.lintcode.com/zh-cn/problem/space-replacement/)
+
+#### 题目
+
+设计一种方法，将一个字符串中的所有空格替换成 `%20` 。你可以假设该字符串有足够的空间来加入新的字符，且你得到的是“真实的”字符长度。  
+你的程序还需要返回被替换后的字符串的长度。
+
+#### 样例
+
+在词典
+
+对于字符串`"Mr John Smith"`, 长度为 `13`  
+替换空格之后，参数中的字符串需要变为`"Mr%20John%20Smith"`，并且把新长度 `17` 作为结果返回。
+
+#### 挑战
+
+在原字符串(字符数组)中完成替换，不适用额外空间
+
+#### 分析
+
+每次遇到空格，就将空格后的字母向后偏移2个位置，然后继续遍历。
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /*
+     * @param string: An array of Char
+     * @param length: The true length of the string
+     * @return: The true length of new string
+     */
+    int replaceBlank(char string[], int length) {
+        // write your code here
+        for(int i = 0; i < length; i++){
+            if(string[i] == ' '){
+                length = offset(string, length, i+1, 2);
+                string[  i] = '%';
+                string[i+1] = '2';
+                string[i+2] = '0';
+            }
+        }
+        return length;
+    }
+private:
+    int offset(char string[], int length, int start, int off){
+        for(int i = length - 1; i >= start; i--){
+            string[i + off] =  string[i];
+        }
+        return length + off;
+    }
+};
+```
+
+### [491. 回文数](http://www.lintcode.com/zh-cn/problem/palindrome-number/)
+
+#### 题目
+
+判断一个正整数是不是回文数。  
+回文数的定义是，将这个数反转之后，得到的数仍然是同一个数。
+
+```c
+注意事项
+给的数一定保证是32位正整数，但是反转之后的数就未必了。
+```
+
+#### 样例
+
+`11`, `121`, `1`, `12321` 这些是回文数。  
+`23`, `32`, `1232` 这些不是回文数。
+
+#### 挑战
+
+#### 分析
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /**
+     * @param num: a positive number
+     * @return: true if it's a palindrome or false
+     */
+    bool isPalindrome(int num) {
+        // write your code here
+        string str = to_string(num);
+        int start = 0, end = str.size() -1;
+        while(start < end){
+            if(str[start++] != str[end--]) return false;
+        }
+        return true;
+    }
+};
+```
+
+### [408. 二进制求和](http://www.lintcode.com/zh-cn/problem/add-binary/)
+
+#### 题目
+
+给定两个二进制字符串，返回他们的和（用二进制表示）。
+
+#### 样例
+
+`a = 11`  
+`b = 1`  
+返回 `100`
+
+#### 挑战
+
+#### 分析
+
+和[167.链表求和](http://www.lintcode.com/zh-cn/problem/add-two-numbers/)思路一样。
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /**
+     * @param a: a number
+     * @param b: a number
+     * @return: the result
+     */
+    string addBinary(string &a, string &b) {
+        // write your code here
+        reverse(a.begin(), a.end());
+        reverse(b.begin(), b.end());
+        
+        bool add_flag = false;
+        int i = 0;
+        ostringstream oss;
+        for(; i < a.size() && i < b.size(); i++){
+            int add = a[i] - '0' + b[i] - '0' + (add_flag ? 1 :0);
+            add_flag = add >= 2;
+            add = add % 2;
+            oss << add;
+        }
+        
+        while(i < a.size()){
+            int add = a[i++] - '0' + (add_flag ? 1 :0);
+            add_flag = add >= 2;
+            add = add % 2;
+            oss << add;
+        }
+        while(i < b.size()){
+            int add = b[i++] - '0' + (add_flag ? 1 :0);
+            add_flag = add >= 2;
+            add = add % 2;
+            oss << add;
+        }
+
+        if(add_flag) oss << 1;
+        string str = oss.str();
+        reverse(str.begin(), str.end());
+        return str;
+    }
+};
+```
+
+### [415. 有效回文串](http://www.lintcode.com/zh-cn/problem/valid-palindrome/)
+
+#### 题目
+
+给定一个字符串，判断其是否为一个回文串。只包含字母和数字，忽略大小写。
+
+```c
+注意事项
+你是否考虑过，字符串有可能是空字符串？这是面试过程中，面试官常常会问的问题。
+
+在这个题目中，我们将空字符串判定为有效回文。
+```
+
+#### 样例
+
+`"A man, a plan, a canal: Panama"` 是一个回文。  
+`"race a car"` 不是一个回文。
+
+#### 挑战
+
+O(n) 时间复杂度，且不占用额外空间。
+
+#### 分析
+
+前后两个指针遍历。
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /**
+     * @param s: A string
+     * @return: Whether the string is a valid palindrome
+     */
+    bool isPalindrome(string &s) {
+        // write your code here
+        int begin = 0, end = s.size();
+        while(begin < end){
+            while(begin < s.size() && !isalnum(s[begin])){
+                begin++;
+            }
+            while(end >= 0 && !isalnum(s[end])){
+                end--;
+            }
+          
+            if(tolower(s[begin++]) != tolower(s[end--])) return false;
+        }
+        return true;
+    }
+};
+```
