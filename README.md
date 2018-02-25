@@ -2427,3 +2427,127 @@ public:
     }
 };
 ```
+
+### [回朔法](http://www.lintcode.com/problem/?tag=backtracking)
+
+### [680. 分割字符串](http://www.lintcode.com/zh-cn/problem/split-string/)
+
+#### 题目
+
+给一个字符串,你可以选择在一个字符或两个相邻字符之后拆分字符串,使字符串由仅一个字符或两个字符组成,输出所有可能的结果
+
+#### 样例
+
+给一个字符串`"123"`  
+返回`[["1","2","3"],["12","3"],["1","23"]]`
+
+#### 挑战
+
+#### 分析
+
+回溯法。
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /*
+     * @param : a string to be split
+     * @return: all possible split string array
+     */
+    vector<vector<string>> splitString(string& s) {
+        // write your code here
+        vector<string> v;
+        vector<vector<string>> r;
+        splitString(s, v, r, 0);
+        return r;
+    }
+    void splitString(string &s, vector<string> &v, vector<vector<string>> &r, int start){
+        if(start == s.size()) {
+            r.push_back(v);
+            return;
+        }
+        if(start < s.size()){
+            v.push_back(s.substr(start,1));
+            splitString(s,v,r, start+1);
+            v.pop_back();
+        }
+        if(start < s.size() - 1){
+            v.push_back(s.substr(start, 2));
+            splitString(s, v, r, start+2);
+            v.pop_back();
+        }
+    }
+};
+```
+
+### [426. 恢复IP地址](http://www.lintcode.com/zh-cn/problem/restore-ip-addresses/)
+
+#### 题目
+
+给一个由数字组成的字符串。求出其可能恢复为的所有IP地址。
+
+#### 样例
+
+给出字符串 `"25525511135"`，所有可能的IP地址为：
+
+```c
+[
+  "255.255.11.135",
+  "255.255.111.35"
+]
+```
+
+#### 挑战
+
+#### 分析
+
+回溯法。
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /**
+     * @param s: the IP string
+     * @return: All possible valid IP addresses
+     */
+    vector<string> restoreIpAddresses(string &s) {
+        // write your code here
+        vector<string> v;
+        vector<string> r;
+        IpAddress(s, v, r, 0);
+
+        return r;
+    }
+    void IpAddress(string &s, vector<string> &v, vector<string> &r, int start){
+        if(start >= s.size()){
+            ostringstream oss;
+            if(v.size() == 4){
+                for(int j = 0; j < 4; j++){
+                    if(j == 0) oss << v[j];
+                    else      oss << '.' << v[j];
+                }
+                r.push_back(oss.str());
+            }
+            return;
+        }
+
+        for(int i = start; i < start +3 && i < s.size(); i++){
+            string ip = s.substr(start, i - start + 1);
+            int num = stoi(ip);
+            if(num <= MAXIP){
+                v.push_back(ip);
+                IpAddress(s, v, r, i + 1);
+                v.pop_back(); 
+            }
+            if(num == 0) break;
+        }
+    }
+    
+private:
+    const int MAXIP = 255;
+};
+```
