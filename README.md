@@ -1834,6 +1834,11 @@ search("b..")  // return true
 
 ### [字符串](http://www.lintcode.com/problem/?tag=string)
 
+```
+备注
+字符串其他问题分别放在文中各个分类中
+```
+
 ### [8. 旋转字符串](http://www.lintcode.com/zh-cn/problem/add-and-search-word/)
 
 #### 题目
