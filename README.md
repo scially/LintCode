@@ -139,16 +139,6 @@
 1. 题中要求时间复杂度为O(n)，那很容易想到我们需要一个工具来记录。
 2. 我们选择map来记录，当我们遇到一个数字时，首先判断在不在map中，若不在map中，那我们就看下这个数字-1 和 +1 在if不在，然后分别判断，若在，则说明之前已经记录过他们的长度，那我们跟着这个记录很容易回到这个序列的第一个和最后一个，更新记录即可。
 
-### [135.数字组合](http://www.lintcode.com/zh-cn/problem/combination-sum/)
-
-1. 回溯法
-2. 从第0个数字开始，当我们把这个数字加到r(```vector<int>```)中后，target就要相应变化，然后我们接着从这个数组中找变化之后的target，如果target=0，就结束，否则就一直递归下去。
-
-### [153.数字组合II](http://www.lintcode.com/zh-cn/problem/combination-sum-ii/)
-
-1. 回溯法
-2. 基本思路和代码都是和**135数字组合**一样的，不同的地方在于要去重。
-
 ### [64.合并排序数组II](http://www.lintcode.com/zh-cn/problem/merge-sorted-array/)
 
 1. 直接用的归并排序的merge函数
@@ -2549,5 +2539,344 @@ public:
     
 private:
     const int MAXIP = 255;
+};
+```
+
+### [570. 寻找丢失的数 II](http://www.lintcode.com/zh-cn/problem/find-the-missing-number-ii/)
+
+#### 题目
+
+给一个由 1 - n 的整数随机组成的一个字符串序列，其中丢失了一个整数，请找到它。
+
+```c
+注意事项
+n <= 30
+```
+
+#### 样例
+
+给出 `n = 20, str = 19201234567891011121314151618`  
+丢失的数是 `17` ，返回这个数。
+
+#### 挑战
+
+#### 分析
+
+因为`n<30`,所以我们只需要考虑1位数或者2位数即可。
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /*
+     * @param n: An integer
+     * @param str: a string with number from 1-n in random order and miss one number
+     * @return: An integer
+     */
+    int findMissing2(int n, string &str) {
+        // write your code here
+        vector<bool> visited(n+1, false); //第一位不用
+        return findMissing2(n, str, 0, visited);
+    }
+    
+    // n <= 30
+    int findMissing2(int n, string &str, int start, vector<bool> &visited){
+        if(start >= str.size()){
+            for(int i = 1; i <= n; i++){
+                if(!visited[i]) return i;
+            }
+            return -1;
+        }
+        
+        if(str[start] == '0') return -1;  // 数字划分失败
+        
+        // 可能是一位数或者两位数
+        for(int i = start; i < start + 3 && i < str.size(); i++){
+            string s = str.substr(start, i-start+1);
+            int num = stoi(s);
+            
+            if(num > 0 && num <= n && !visited[num]){ //[1,n]
+                visited[num] = true;
+                int miss =  findMissing2(n, str, i+1, visited);
+                if(miss != -1) return miss;
+                
+                visited[num] = false;
+            }
+        }
+        return -1;  // must
+    }
+};
+```
+
+### [570. 寻找丢失的数 II](http://www.lintcode.com/zh-cn/problem/find-the-missing-number-ii/)
+
+#### 题目
+
+Given a digit string excluded 01, return all possible letter combinations that the number could represent.  
+A mapping of digit to letters (just like on the telephone buttons) is given below.  
+![拨号键盘](https://lintcode-media.s3.amazonaws.com/problem/200px-Telephone-keypad2.svg.png)
+
+```c
+注意事项
+以上的答案是按照词典编撰顺序进行输出的，不过，在做本题时，你也可以任意选择你喜欢的输出顺序。
+```
+
+#### 样例
+
+给定 `"23"`  
+返回 `["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]`
+
+#### 挑战
+
+#### 分析
+
+回溯法。
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /**
+     * @param digits: A digital string
+     * @return: all posible letter combinations
+     */
+    vector<string> letterCombinations(string &digits) {
+        // write your code here
+        vector<string> v;
+        string tmp;
+        letter(digits, 0, tmp, v);
+        return v;
+    }
+private:
+    void letter(string &digits, int start, string &str, vector<string> &v){
+        if(start == digits.size()){
+            if(str.size() != 0 && str.size() == digits.size()) 
+                v.push_back(str);
+            return;
+        }
+        
+        for(int i = start; i < digits.size(); i++){
+            int index = digits[i] - '0';
+            if(index == 0 || index == 1) continue;
+            
+            for(int j = 0; j < 4 && digit[index][j] ; j++){
+                string oldstr = str;
+                str += digit[index][j];
+                letter(digits, i+1, str, v);
+                str = oldstr;
+            }
+        }
+    }
+    const char digit[10][5] = {
+        "",       // 0 
+        "",       // 1
+        "abc",    // 2
+        "def",    // 3
+        "ghi",    // 4
+        "jkl",    // 5
+        "mno",    // 6
+        "pqrs",   // 7
+        "tuv",    // 8
+        "wxyz"    // 9
+    };
+};
+```
+
+### [683. 单词拆分 III](http://www.lintcode.com/zh-cn/problem/word-break-iii/)
+
+#### 题目
+
+给出一个单词表和一条去掉所有空格的句子，根据给出的单词表添加空格, 返回可以构成的句子的数量, 保证构成的句子中所有的单词都可以在单词表中找到.
+
+```c
+注意事项
+忽略大小写
+```
+
+#### 样例
+
+给一个字符串 `CatMat`, 给出字典 `["Cat", "Mat", "Ca", "tM", "at", "C", "Dog", "og", "Do"]`, 返回 `3`  
+我们可以构成一下 `3` 条语句: `CatMat = Cat Mat CatMat = Ca tM at CatMat = C at Mat`
+
+#### 挑战
+
+#### 分析
+
+我们首先将set集合中的全部转为小写，将待拆分的单词也转为小写。
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /*
+     * @param : A string
+     * @param : A set of word
+     * @return: the number of possible sentences.
+     */
+    int wordBreak3(string& s, unordered_set<string>& dict) {
+        // Write your code here
+        unordered_set<string> _dict;
+        for(auto iter = dict.begin(); iter != dict.end(); iter++){
+            _dict.insert(tolower(*iter));
+        }
+        s = tolower(s);
+        
+        vector<vector<string>> v;
+        vector<string> r;
+        wordBreak3(s, _dict, v, r, 0);
+        return v.size();
+    }
+    void wordBreak3(string &s, unordered_set<string> &dict, 
+                vector<vector<string>> &v, vector<string> &r, int start){
+        if(start == s.size()){
+            v.push_back(r);
+        }
+        
+        for(int i = start; i < s.size(); i++){
+            string word = s.substr(start, i - start + 1);
+            if(dict.find(word) != dict.end()){
+                r.push_back(word);
+                wordBreak3(s, dict, v, r, i+1);
+                r.pop_back();
+            }
+        }
+    }
+    string tolower(const string &str){
+        string lower = str;
+        transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
+        return lower;
+    }
+};
+```
+### [135.数字组合](http://www.lintcode.com/zh-cn/problem/combination-sum/)
+
+#### 题目
+
+给出一个候选数字的`set(C)`和目标数字`(T)`,找到`C`中所有的组合，使找出的数字和为`T`。`C`中的数字可以无限制重复被选取。  
+例如,给出候选数组`[2,3,6,7]`和目标数字`7`，所求的解为：  
+`[7]`，    
+`[2,2,3]`  
+
+```c
+注意事项
+1. 所有的数字(包括目标数字)均为正整数。
+2. 元素组合(a1, a2, … , ak)必须是非降序(ie, a1 ≤ a2 ≤ … ≤ ak)。
+3. 解集不能包含重复的组合。 
+```
+
+#### 样例
+
+给出候选`set[2,3,6,7]`和目标数字`7`
+返回 `[[7],[2,2,3]]`
+
+#### 挑战
+
+#### 分析
+
+回溯法
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /*
+     * @param candidates: A list of integers
+     * @param target: An integer
+     * @return: A list of lists of integers
+     */
+    vector<vector<int>> combinationSum(vector<int> &candidates, int target) {
+        // write your code here
+        vector<vector<int>> res;
+        vector<int> r;
+        sort(candidates.begin(), candidates.end());
+        
+        combinationSum(candidates, target, 0, r, res);
+        return res;
+    }
+    
+    void combinationSum(const vector<int> &candidates, int target, int start, 
+                        vector<int> &r, vector<vector<int>> &res){
+        if(target == 0){
+            res.push_back(r);
+            return;
+        }
+        
+        for(int i = start; i < candidates.size(); i++){
+            if(candidates[i] > target) break;
+            
+            r.push_back(candidates[i]);
+            combinationSum(candidates, target - candidates[i], i, r, res);
+            r.pop_back();
+        }
+    }
+};
+```
+
+### [153. 数字组合 II](http://www.lintcode.com/zh-cn/problem/combination-sum-ii/)
+
+#### 题目
+
+给出一组候选数字(C)和目标数字(T),找出C中所有的组合，使组合中数字的和为T。C中每个数字在每个组合中只能使用一次。
+
+```c
+注意事项
+1. 所有的数字(包括目标数字)均为正整数。
+2. 元素组合(a1, a2, … , ak)必须是非降序(ie, a1 ≤ a2 ≤ … ≤ ak)。
+3. 解集不能包含重复的组合。 
+```
+
+#### 样例
+
+给出一个例子，候选数字集合为`[10,1,6,7,2,1,5]` 和目标数字 `8`  ,
+解集为：`[[1,7],[1,2,5],[2,6],[1,1,6]]`
+
+#### 挑战
+
+#### 分析
+
+1. 回溯法
+2. 基本思路和代码都是和[135.数字组合](http://www.lintcode.com/zh-cn/problem/combination-sum/)一样的，不同的地方在于要去重。
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /*
+     * @param num: Given the candidate numbers
+     * @param target: Given the target number
+     * @return: All the combinations that sum to target
+     */
+    vector<vector<int>> combinationSum2(vector<int> &num, int target) {
+        // write your code here
+        vector<int> r;
+        vector<vector<int>> res;
+        
+        sort(num.begin(), num.end());
+        combinationSum2(num, target, 0, r, res);
+        return res;
+    }
+    
+    void combinationSum2(const vector<int> &num, int target, int start,
+                         vector<int> &r, vector<vector<int>> &res){
+        
+        if(target == 0){
+            res.push_back(r);
+            return;
+        }
+        for(int i = start; i < num.size(); i++){
+            //num中可能会有重复元素
+            if(i > start && num[i] == num[i-1]) continue; 
+            if(num[i] > target) break;
+            
+            r.push_back(num[i]);
+            combinationSum2(num, target-num[i], i+1, r, res);
+            r.pop_back(); //回溯
+        }
+    }
 };
 ```
