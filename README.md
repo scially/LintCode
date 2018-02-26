@@ -143,10 +143,6 @@
 
 1. 直接用的归并排序的merge函数
 
-### [152.组合](http://www.lintcode.com/zh-cn/problem/combinations/)
-
-1. 和**135数字组合一样**都是简单回溯法的应用
-
 ### [157.判断字符串是否没有重复字符](http://www.lintcode.com/zh-cn/problem/unique-characters/)
 
 1. 这道题要求不占用额外空间，我见其他人都是直接两重循环做那样复杂度就是O(n2)，如果我先排序(onlogn)，然后在遍历一遍，这样最后是O(nlogn)。
@@ -2877,6 +2873,224 @@ public:
             combinationSum2(num, target-num[i], i+1, r, res);
             r.pop_back(); //回溯
         }
+    }
+};
+```
+
+### [152.组合](http://www.lintcode.com/zh-cn/problem/combinations/)
+
+#### 题目
+
+组给出两个整数`n`和`k`，返回从`1......n`中选出的`k`个数的组合。
+
+#### 样例
+
+例如 `n = 4` 且 `k = 2`  
+返回的解为：  
+`[[2,4],[3,4],[2,3],[1,2],[1,3],[1,4]]`
+
+#### 挑战
+
+#### 分析
+
+1. 和[135.数字组合](http://www.lintcode.com/zh-cn/problem/combination-sum/)都是简单回溯法的应用
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /*
+     * @param n: Given the range of numbers
+     * @param k: Given the numbers of combinations
+     * @return: All the combinations of k numbers out of 1..n
+     */
+    vector<vector<int>> combine(int n, int k) {
+        // write your code here
+        vector<vector<int>> res;
+        vector<int> r;
+        combine(n, k, 1, r, res);
+        return res;
+    }
+    
+    void combine(int n, int k, int start, 
+                 vector<int> &r, vector<vector<int>> &res){
+        
+        if(k == 0){
+            res.push_back(r);
+            return;
+        }
+        
+        for(int i = start; i <= n; i++){
+            r.push_back(i);
+            combine(n, k-1, i+1, r, res);
+            r.pop_back();
+        }
+    }
+};
+```
+
+### [123. 单词搜索](http://www.lintcode.com/zh-cn/problem/word-search/)
+
+#### 题目
+
+给出一个二维的字母板和一个单词，寻找字母板网格中是否存在这个单词。  
+单词可以由按顺序的相邻单元的字母组成，其中相邻单元指的是水平或者垂直方向相邻。每个单元中的字母最多只能使用一次。
+
+#### 样例
+
+给出
+
+```c
+board =
+[
+
+  "ABCE",
+
+  "SFCS",
+
+  "ADEE"
+
+]
+
+word = "ABCCED"， ->返回 true,
+
+word = "SEE"，-> 返回 true,
+
+word = "ABCB"， -> 返回 false.
+```
+
+#### 挑战
+
+#### 分析
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /*
+     * @param board: A list of lists of character
+     * @param word: A string
+     * @return: A boolean
+     */
+    bool exist(vector<vector<char>> &board, string &word) {
+        // write your code here
+        vector<vector<bool>> visited(board.size(), vector<bool>(board[0].size(), false));
+        for(int i = 0; i < board.size(); i++){
+            for(int j = 0; j < board[0].size(); j++){
+                if(board[i][j] == word[0]){
+                    if(exist(board, word, visited, i, j, 0)) 
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    bool exist(vector<vector<char>> &board, string &word, vector<vector<bool>> &visited,
+            int x, int y, int start){
+            
+            if(start >= word.size()){
+                return true;
+            }
+            if(x >= board.size() || x < 0 
+               || y < 0 || y >= board[0].size()
+               || board[x][y] != word[start]
+               || visited[x][y]){
+                return false;
+            }
+            
+            // visited[x][y] = true;
+            // bool hor1 = false, hor2 = false, ver1 = false, ver2 = false;
+            // if (exist(board, word, visited, x, y-1, start+1)
+            //     || exist(board, word, visited, x, y+1, start+1)
+            //     || exist(board, word, visited, x-1, y, start+1)
+            //     || exist(board, word, visited, x+1, y, start+1))
+            //     return true;
+           
+            // visited[x][y] = false;  // 回溯
+            
+            // return false;
+            // 上面这段代码会TLE, why?
+            
+            visited[x][y] = true;
+            bool hor1 = false, hor2 = false, ver1 = false, ver2 = false;
+            if (exist(board, word, visited, x, y-1, start+1)
+                || exist(board, word, visited, x, y+1, start+1)
+                || exist(board, word, visited, x-1, y, start+1)
+                || exist(board, word, visited, x+1, y, start+1))
+                return true;
+           
+            visited[x][y] = false;  // 回溯
+            
+            return false;
+    }
+};
+```
+
+### [136. 分割回文串](http://www.lintcode.com/zh-cn/problem/palindrome-partitioning/)
+
+#### 题目
+
+给定一个字符串s，将s分割成一些子串，使每个子串都是回文串。  
+返回s所有可能的回文串分割方案。
+
+#### 样例
+
+给出 `s = "aab"`，返回
+
+```c
+[
+  ["aa", "b"],
+  ["a", "a", "b"]
+]
+```
+
+#### 挑战
+
+#### 分析
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /*
+     * @param s: A string
+     * @return: A list of lists of string
+     */
+    vector<vector<string>> partition(string &s) {
+        // write your code here
+        vector<string> v;
+        vector<vector<string>> r;
+        partition(s, v, r, 0);
+        return r;
+    }
+private:
+    void partition(string &s, vector<string> &v, vector<vector<string>> &r,
+                   int start){
+        if(start == s.size()){
+            r.push_back(v);
+            return;
+        }
+        
+        for(int i = start; i < s.size(); i++){
+            string str = s.substr(start, i-start+1);
+            if(isPalindrome(str)){
+                v.push_back(str);
+                partition(s, v, r, i+1);
+                v.pop_back();
+            }
+        }
+    }
+    
+    bool isPalindrome(const string &s){
+        for(int start = 0, end = s.size()-1; start < end; start++, end--){
+            if(s[start] != s[end])
+                return false;
+        }
+        return true;
     }
 };
 ```
