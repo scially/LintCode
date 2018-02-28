@@ -3012,7 +3012,7 @@ public:
             // visited[x][y] = false;  // 回溯
             
             // return false;
-            // 上面这段代码会TLE, why?
+            // 上面这段代码会TLE
             
             visited[x][y] = true;
             bool hor1 = false, hor2 = false, ver1 = false, ver2 = false;
