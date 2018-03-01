@@ -3177,6 +3177,99 @@ private:
 };
 ```
 
+### [17. 子集](http://www.lintcode.com/zh-cn/problem/subsets/)
+
+#### 题目
+
+给定一个含不同整数的集合，返回其所有的子集
+
+```c
+注意事项
+子集中的元素排列必须是非降序的，解集必须不包含重复的子集
+
+```
+
+#### 样例
+
+如果 `S = [1,2,3]`，有如下的解：
+
+```c
+[
+  [3],
+  [1],
+  [2],
+  [1,2,3],
+  [1,3],
+  [2,3],
+  [1,2],
+  []
+]
+```
+
+#### 挑战
+
+请用非递归方法尝试解答这道题。
+
+#### 分析
+
+递归就不说了。对于非递归，可以用队列来做。
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /*
+     * @param nums: A set of numbers
+     * @return: A list of lists
+     */
+    vector<vector<int>> subsets(vector<int> &nums) {
+        // write your code here
+        
+        // 递归版
+        // vector<vector<int>> v;
+        // vector<int> r;
+        // subsets(nums, r, v, 0);
+        // return v;
+        
+        
+        // 非递归
+        sort(nums.begin(), nums.end());
+        queue<vector<int>> q;
+        vector<vector<int>> r;
+        
+        q.push(vector<int>());
+        while(!q.empty()){
+            auto v = q.front();
+            q.pop();
+            r.push_back(v);
+            for(int i = v.size(); i < nums.size(); i++){
+                if(v.size() == 0 || v[v.size() - 1] < nums[i]){
+                    v.push_back(nums[i]);
+                    q.push(v);
+                    v.pop_back();
+                }
+            }
+        }
+        return r;
+    }
+    
+    void subsets(vector<int> &nums, vector<int> &r, vector<vector<int>> &v,
+                 int start){
+    
+        v.push_back(r);
+        for(int i = start; i < nums.size(); i++){
+            r.push_back(nums[i]);
+            subsets(nums, r, v, i+1);
+            r.pop_back();
+        }
+        
+    }
+    
+    
+};
+```
+
 ### [递归](http://www.lintcode.com/problem/?tag=recursion)
 
 ### [22. 平面列表](http://www.lintcode.com/zh-cn/problem/flatten-list/)
