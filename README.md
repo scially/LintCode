@@ -560,13 +560,6 @@ t=l-m
 
 1. 递归,每次交换左右节点，将右节点放在左节点的最右子节点上，将最新的左节点放到右节点上。
 
-### [93. 平衡二叉树](http://www.lintcode.com/zh-cn/problem/balanced-binary-tree/)
-
-**题目：** 给定一个二叉树,确定它是高度平衡的。对于这个问题,一棵高度平衡的二叉树的定义是：一棵二叉树中每个节点的两个子树的深度相差不会超过1。  
-**分析：**
-
-1. 分治，不过这里在分治的时候我们既需要保存是否是平衡树也需要知道最大深度，所以使用一个结构体。
-
 ### [88. 最近公共祖先](http://www.lintcode.com/zh-cn/problem/lowest-common-ancestor/)
 
 **题目：** 给定一棵二叉树，找到两个节点的最近公共父节点(LCA)。最近公共祖先是两个节点的公共的祖先节点且具有最大深度。注意：假设给出的两个节点都在树中存在。  
@@ -706,6 +699,95 @@ t=l-m
 #### 分析：
 
 1. 一个关键点就在于我如何知道我到了这一层的最后一个结点，我在这里用了一个私有的成员来表示最后一个结点，具体可以看代码注释。
+
+### [93. 平衡二叉树](http://www.lintcode.com/zh-cn/problem/balanced-binary-tree/)
+
+#### 题目
+
+给定一个二叉树,确定它是高度平衡的。对于这个问题,一棵高度平衡的二叉树的定义是：一棵二叉树中每个节点的两个子树的深度相差不会超过1。 
+
+#### 样例
+
+给出二叉树 `A={3,9,20,#,#,15,7}, B={3,#,20,15,7}`
+
+```c
+A)  3            B)    3 
+   / \                  \
+  9  20                 20
+    /  \                / \
+   15   7              15  7
+二叉树A是高度平衡的二叉树，但是B不是
+```
+
+#### 挑战
+
+#### 分析
+
+这里要注意的是我们写的函数不仅仅需要判断是否是平衡二叉树，还需要知道子树的高度，因为只有有了高度才能判断是否是平衡二叉树，所以我们就设计一个结构体，来保存这样的结果。
+
+#### 代码
+ 
+```c++
+/**
+ * Definition of TreeNode:
+ * class TreeNode {
+ * public:
+ *     int val;
+ *     TreeNode *left, *right;
+ *     TreeNode(int val) {
+ *         this->val = val;
+ *         this->left = this->right = NULL;
+ *     }
+ * }
+ */
+
+
+class Solution {
+public:
+    struct ResultType{
+        bool isBalanced;
+        int  depth;
+        ResultType(bool is, int d): isBalanced(is), depth(d){}
+    };
+    /*
+     * @param root: The root of binary tree.
+     * @return: True if this Binary tree is Balanced, or false.
+     */
+    bool isBalanced(TreeNode * root) {
+        // write your code here
+        
+        // verson 1
+        // ResultType r = help(root);
+        // return r.isBalanced;
+        
+        // verson2
+        return maxDepth(root) != -1;
+    }
+    ResultType help(TreeNode *root){
+        if(root == nullptr) return ResultType(true, 0);
+        ResultType r = help(root->right);
+        ResultType l = help(root->left) ;
+        
+        if(!r.isBalanced || !l.isBalanced){
+            return ResultType(false, -1);
+        }
+        if(abs(r.depth - l.depth) > 1)
+            return ResultType(false, -1);
+        
+        return ResultType(true, max(l.depth, r.depth) + 1);
+    }
+    
+    int maxDepth(TreeNode *root){
+        if(root == nullptr) return 0;
+        
+        int l = maxDepth(root->left);
+        int r = maxDepth(root->right);
+        
+        if(l == -1 || r == -1 || abs(l - r) > 1) return -1;
+        else return max(l, r) + 1;
+    }
+};
+```
 
 ### [201. 线段树的构造](http://www.lintcode.com/zh-cn/problem/segment-tree-build/)
 
@@ -3091,6 +3173,79 @@ private:
                 return false;
         }
         return true;
+    }
+};
+```
+
+### [递归](http://www.lintcode.com/problem/?tag=recursion)
+
+### [22. 平面列表](http://www.lintcode.com/zh-cn/problem/flatten-list/)
+
+#### 题目
+
+给定一个列表，该列表中的每个要素要么是个列表，要么是整数。将其变成一个只包含整数的简单列表。
+
+```c
+注意事项
+如果给定的列表中的要素本身也是一个列表，那么它也可以包含列表。
+```
+
+#### 样例
+
+给定 `[1,2,[1,2]]`，返回 `[1,2,1,2]`。
+给定 `[4,[3,[2,[1]]]]`，返回 `[4,3,2,1]`。
+
+#### 挑战
+
+请用非递归方法尝试解答这道题。
+
+#### 分析
+
+递归就不说了。对于非递归，可以用队列来做。
+
+#### 代码
+ 
+```c++
+/**
+ * // This is the interface that allows for creating nested lists.
+ * // You should not implement it, or speculate about its implementation
+ * class NestedInteger {
+ *   public:
+ *     // Return true if this NestedInteger holds a single integer,
+ *     // rather than a nested list.
+ *     bool isInteger() const;
+ *
+ *     // Return the single integer that this NestedInteger holds,
+ *     // if it holds a single integer
+ *     // The result is undefined if this NestedInteger holds a nested list
+ *     int getInteger() const;
+ *
+ *     // Return the nested list that this NestedInteger holds,
+ *     // if it holds a nested list
+ *     // The result is undefined if this NestedInteger holds a single integer
+ *     const vector<NestedInteger> &getList() const;
+ * };
+ */
+class Solution {
+public:
+    // @param nestedList a list of NestedInteger
+    // @return a list of integer
+    vector<int> flatten(vector<NestedInteger> &nestedList) {
+        // Write your code here
+        vector<int> r;
+        flatten(nestedList, r);
+        return r;
+    }
+    
+    void flatten(const vector<NestedInteger> &list, vector<int> &r){
+        for(int i = 0; i < list.size(); i++){
+            if(!list[i].isInteger()){
+                flatten(list[i].getList(), r);
+            }
+            else{
+                r.push_back(list[i].getInteger());
+            }
+        }
     }
 };
 ```
