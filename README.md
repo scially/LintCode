@@ -4060,3 +4060,53 @@ public:
     }
 };
 ```
+
+### [116.跳跃游戏](http://www.lintcode.com/zh-cn/problem/jump-game/)
+
+#### 题目
+
+给出一个非负整数数组，你最初定位在数组的第一个位置。  
+数组中的每个元素代表你在那个位置可以跳跃的最大长度。　　　
+你的目标是使用最少的跳跃次数到达数组的最后一个位置。  
+
+#### 样例
+
+给出数组A = `[2,3,1,1,4]`，最少到达数组最后一个位置的跳跃次数是2(从数组下标0跳一步到数组下标1，然后跳3步到数组的最后一个位置，一共跳跃2次)
+
+#### 挑战
+
+#### 标签
+
+坐标型动态规划
+
+#### 分析
+
+和[116.跳跃游戏](http://www.lintcode.com/zh-cn/problem/jump-game/)一样的思路，就是需要两个状态，一个保存是否可以跳到，一个保存最少步数，这里利用INT_MAX将这两种状态合并为一个。
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /*
+     * @param A: A list of integers
+     * @return: A boolean
+     */
+    bool canJump(vector<int> &A) {
+        // write your code here
+        int size = A.size();
+        bool dp[A.size()];
+        dp[0] = true;
+        for(int i = 1; i < size; i++){
+            dp[i] = false;
+            for(int j = 0; j < i; j++){
+                if(dp[j] && A[j] >= i-j){
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return dp[size-1];
+    }
+};
+```
