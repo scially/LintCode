@@ -3572,3 +3572,186 @@ public:
     }
 };
 ```
+
+### [动态规划](http://www.lintcode.com/problem/?tag=dynamic-programming)
+
+### [109. 数字三角形](http://www.lintcode.com/zh-cn/problem/triangle/)
+
+#### 题目
+
+给定一个数字三角形，找到从顶部到底部的最小路径和。每一步可以移动到下面一行的相邻数字上。
+
+```c
+注意事项
+如果你只用额外空间复杂度O(n)的条件下完成可以获得加分，其中n是数字三角形的总行数。
+```
+
+#### 样例
+
+比如，给出下列数字三角形：
+
+```c
+[
+     [2],
+    [3,4],
+   [6,5,7],
+  [4,1,8,3]
+]
+```
+
+从顶到底部的最小路径和为`11 ( 2 + 3 + 5 + 1 = 11)`。
+
+#### 挑战
+
+#### 分析
+
+这道题放在第一个，是因为他是动态规划最好的入门题，首先我们可以考虑不使用动态规划，仅仅进行DFS遍历，但是我们会发现这样会超时，为什么，就是因为对三角形内部的节点我们重复遍历了，所以我们引入哈希表，我们将算过的节点保存在哈希表中，此时代码已经可以AC了，实际上到这时就已经是一种动态规划了，是一种带记忆搜索的动态规划。  
+然后我们在考虑使用常见的for循环的动态规划的写法。实际上这种方法又分为两种：自顶向下和自底向上。对于这两种在空间复杂度和时间复杂度是没有区别的。我们知道三角形内部的每个节点都取决于他上面的的两个节点（自顶向下）的值，所以根据这个我们可以写出代码。  
+在这里我把这几种代码都放出来，供大家参考。
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /**
+     * @param triangle: a list of lists of integers.
+     * @return: An integer, minimum path sum.
+     */
+    int minimumTotal(vector<vector<int>> &triangle) {
+        // write your code here
+        
+        dfs TLE
+        int best = INT_MAX;
+        dfs(triangle, 0, 0, 0, best);
+        return best;
+    }
+    void dfs(vector<vector<int>> &triangle, int x, int y, int sum, int &best){
+        if(x == triangle.size()){
+            best = min(best, sum);
+            return;
+        }
+        
+        dfs(triangle, x+1, y, sum+triangle[x][y], best);
+        dfs(triangle, x+1, y+1,sum+triangle[x][y], best);
+    }
+};
+
+```
+
+```c++
+class Solution {
+public:
+    /**
+     * @param triangle: a list of lists of integers.
+     * @return: An integer, minimum path sum.
+     */
+    int minimumTotal(vector<vector<int>> &triangle) {
+        // write your code here
+       
+        // divide TLE
+        return divide(triangle, 0, 0);         
+    }
+    
+    int divide(vector<vector<int>> &triangle, int x, int y){
+        if(x == triangle.size()){
+            return 0;
+        }
+        
+        return triangle[x][y] + min(divide(triangle,x+1,y),
+                                    divide(triangle,x+1,y+1));
+    }
+};
+```
+
+```c++
+class Solution {
+public:
+    /**
+     * @param triangle: a list of lists of integers.
+     * @return: An integer, minimum path sum.
+     */
+    int minimumTotal(vector<vector<int>> &triangle) {
+        // write your code here
+       
+        // divide + hash
+        // 实际上这也是一中动态规划，带记忆搜索的
+         vector<vector<int>> hash = triangle;
+         for(int i = 0; i < hash.size(); i++){
+             for(int j = 0; j < hash[i].size(); j++){
+                 hash[i][j] = INT_MAX;
+             }
+        }
+        return divide_hash(triangle, 0, 0, hash);
+    }   
+    int divide_hash(vector<vector<int>> &triangle, int x, int y, vector<vector<int>> &hash){
+        if(x == triangle.size()) return 0;
+        
+        if(hash[x][y] != INT_MAX)
+            return hash[x][y];
+        
+        hash[x][y] = triangle[x][y] + min(divide_hash(triangle, x+1, y, hash), 
+                                          divide_hash(triangle, x+1, y+1, hash));
+        
+        return hash[x][y];
+    }
+};
+```
+
+```c++
+class Solution {
+public:
+    /**
+     * @param triangle: a list of lists of integers.
+     * @return: An integer, minimum path sum.
+     */
+    int minimumTotal(vector<vector<int>> &triangle) {
+        // write your code here
+
+        // 动态规划 自底向上
+        int n = triangle.size();
+        vector<vector<int>> f = triangle; // 用triangle的size初始化f
+        for(int i = 0; i < f[n-1].size(); i++){
+             f[n-1][i] = triangle[n-1][i]; 
+         }
+         for(int i = n-2; i >= 0; i--){
+             for(int j = 0; j < triangle[i].size(); j++){
+                 // 当前节点的值 只取决于跟他直接相连的两个节点
+                 f[i][j] = triangle[i][j] + min(f[i+1][j], f[i+1][j+1]);
+             }
+         }
+         return f[0][0];
+};
+```
+
+```c++
+class Solution {
+public:
+    /**
+     * @param triangle: a list of lists of integers.
+     * @return: An integer, minimum path sum.
+     */
+    int minimumTotal(vector<vector<int>> &triangle) {
+        // write your code here
+        
+        // 动态规划 自顶向下
+        int n = triangle.size();
+        vector<vector<int>> f = triangle;   // 此时对于f来说，每行两端的元素已经与triangle的相同
+        for(int i = 1; i < n; i++){ 
+            // 初始化每行两端元素
+            f[i][0] += f[i-1][0];
+            f[i][f[i].size()-1] += f[i-1][f[i-1].size()-1];
+        }
+        for(int i = 1; i < n; i++){
+            for(int j = 1; j < f[i].size() -1; j++){
+                f[i][j] = triangle[i][j] + min(f[i-1][j-1], f[i-1][j]);
+            }
+        }
+        int minsum = INT_MAX;
+        for(int i = 0; i < f[n-1].size(); i++){
+            minsum = min(minsum, f[n-1][i]);
+        }
+        return minsum;
+    }
+};
+```
