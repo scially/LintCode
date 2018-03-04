@@ -3855,7 +3855,6 @@ n和m均不超过100
  
 ```c++
 class Solution {
-class Solution {
 public:
     /**
      * @param n, m: positive integer (1 <= n ,m <= 100)
@@ -3881,6 +3880,124 @@ public:
             }
         }
         return dp[m-1][n-1];
+    }
+};
+```
+
+### [115. 不同的路径 II ](http://www.lintcode.com/zh-cn/problem/unique-paths-ii/)
+
+#### 题目
+
+"不同的路径" 的跟进问题：  
+现在考虑网格中有障碍物，那样将会有多少条不同的路径？  
+网格中的障碍和空位置分别用 1 和 0 来表示。  
+
+```C
+注意事项
+n和m均不超过100
+
+```
+
+#### 样例
+
+如下所示在3x3的网格中有一个障碍物：
+
+```c
+[
+  [0,0,0],
+  [0,1,0],
+  [0,0,0]
+]
+```
+
+一共有2条不同的路径从左上角到右下角。
+
+#### 挑战
+
+#### 标签
+
+坐标型动态规划
+
+#### 分析
+  
+思考如果上下左右可以走，还可以使用动态规划么？
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /**
+     * @param obstacleGrid: A list of lists of integers
+     * @return: An integer
+     */ 
+    int uniquePathsWithObstacles(vector<vector<int> > &obstacleGrid) {
+        // write your code here
+        int row = obstacleGrid.size();
+        int col = obstacleGrid[0].size();
+        int dp[100][100];
+        
+        for(int i = 0; i < 100; i++){
+            for(int j = 0; j < 100; j++)
+                dp[i][j] = 0;
+        }
+        dp[0][0] = 1;
+        for(int i = 0; i < row; i++){
+            for(int j = 0; j < col; j++){
+                if (obstacleGrid[i][j] == 1) 
+                    dp[i][j] = 0;
+                else{
+                    if(i > 0) 
+                        dp[i][j] += dp[i-1][j];
+                    if (j > 0) 
+                        dp[i][j] += dp[i][j-1];
+                }
+            }
+        }
+        return dp[row-1][col-1];
+    }
+};
+```
+
+### [111. 爬楼梯](http://www.lintcode.com/zh-cn/problem/climbing-stairs/)
+
+#### 题目
+
+假设你正在爬楼梯，需要n步你才能到达顶部。但每次你只能爬一步或者两步，你能有多少种不同的方法爬到楼顶部？
+
+#### 样例
+
+比如`n=3，1+1+1=1+2=2+1=3`，共有`3`种不同的方法
+返回 `3`
+
+#### 挑战
+
+#### 标签
+
+坐标型动态规划
+
+#### 分析
+  
+斐波那契数列
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /**
+     * @param n: An integer
+     * @return: An integer
+     */
+    int climbStairs(int n) {
+        // write your code here
+        int a = 1,b = 1;
+        int j = 0;
+        while(j++ < n){
+            a = a + b;
+            b = a - b;
+        }
+        return b;
     }
 };
 ```
