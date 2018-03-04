@@ -130,10 +130,6 @@
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\begin{cases}&space;0,if\,i=0,\,or\,j&space;=&space;0\\&space;c[i-1,j-1]&plus;1,if&space;i,j>0\,and\,Ai=Bi\\&space;max(c[i,j-1],c[i-1,j])if&space;i,j>0\,and\,Ai\neq&space;Bi\\&space;\end{cases}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\begin{cases}&space;0,if\,i=0,\,or\,j&space;=&space;0\\&space;c[i-1,j-1]&plus;1,if&space;i,j>0\,and\,Ai=Bi\\&space;max(c[i,j-1],c[i-1,j])if&space;i,j>0\,and\,Ai\neq&space;Bi\\&space;\end{cases}" title="\begin{cases} 0,if\,i=0,\,or\,j = 0\\ c[i-1,j-1]+1,if i,j>0\,and\,Ai=Bi\\ max(c[i,j-1],c[i-1,j])if i,j>0\,and\,Ai\neq Bi\\ \end{cases}" /></a>
 
-### [116.跳跃游戏](http://www.lintcode.com/zh-cn/problem/jump-game/)
-
-1. 目前用的动态规划，能否跳到最后一个位置也就是dp[n]是否为true，取决于dp[n-1],dp[n-2],...,dp[1]他们是否能跳到，如果能跳到他们的位置，那他们能否跳到最后一个位置，所以我们需要一个dp[n]来保存这些状态
-
 ### [124.最长连续序列](http://www.lintcode.com/zh-cn/problem/longest-consecutive-sequenc)
 
 1. 题中要求时间复杂度为O(n)，那很容易想到我们需要一个工具来记录。
@@ -3998,6 +3994,69 @@ public:
             b = a - b;
         }
         return b;
+    }
+};
+```
+
+### [116.跳跃游戏](http://www.lintcode.com/zh-cn/problem/jump-game/)
+
+#### 题目
+
+给出一个非负整数数组，你最初定位在数组的第一个位置。  
+数组中的每个元素代表你在那个位置可以跳跃的最大长度。　 
+判断你是否能到达数组的最后一个位置
+
+```c
+ 注意事项
+这个问题有两个方法，一个是贪心和 动态规划。
+
+贪心方法时间复杂度为O（N）。
+
+动态规划方法的时间复杂度为为O（n^2）。
+
+我们手动设置小型数据集，使大家可以通过测试的两种方式。这仅仅是为了让大家学会如何使用动态规划的方式解决此问题。如果您用动态规划的方式完成它，你可以尝试贪心法，以使其再次通过一次。
+```
+
+#### 样例
+
+A = `[2,3,1,1,4]`，返回 `true`.
+
+A = `[3,2,1,0,4]`，返回 `false`.
+
+#### 挑战
+
+#### 标签
+
+坐标型动态规划
+
+#### 分析
+
+目前用的动态规划，能否跳到最后一个位置也就是dp[n]是否为true，取决于dp[n-1],dp[n-2],...,dp[1]他们是否能跳到，如果能跳到他们的位置，那他们能否跳到最后一个位置，所以我们需要一个dp[n]来保存这些状态
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /*
+     * @param A: A list of integers
+     * @return: A boolean
+     */
+    bool canJump(vector<int> &A) {
+        // write your code here
+        int size = A.size();
+        bool dp[A.size()];
+        dp[0] = true;
+        for(int i = 1; i < size; i++){
+            dp[i] = false;
+            for(int j = 0; j < i; j++){
+                if(dp[j] && A[j] >= i-j){
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return dp[size-1];
     }
 };
 ```
