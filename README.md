@@ -3864,7 +3864,11 @@ public:
     int uniquePaths(int m, int n) {
         // wirte your code here
         int dp[100][100];
-        
+        for(int i = 0; i < 100; i++){
+            for(int j = 0; j < 100; j++){
+                dp[i][j] = 0;
+            }
+        }
         dp[0][0]=1;
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
@@ -3879,5 +3883,4 @@ public:
         return dp[m-1][n-1];
     }
 };
-
 ```
