@@ -10,7 +10,7 @@
 ### 31.数组划分
 
 1. 整数ｋ不一定是数组中的元素
-2. 因为这道题并没有说完全按照```<k ,==k, >k```的顺序，所以我们可以使用2路排序将其排列为```<k,>=k```的元素即可
+2. 因为这道题并没有说完全按照`<k ,==k, >k`的顺序，所以我们可以使用2路排序将其排列为`<k, >=k`的元素即可
 
 ### 5.第K大元素
 
@@ -20,8 +20,8 @@
 
 ### 148.颜色分类
 
-1. 这道题要注意的是partition需要严格分<1 =1 >1三种，因此需要三路排序
-2. 使用三个索引 lt, i, gt，使得[l,lt] <1 (lt+1,i)=1 [gt,r)>1
+1. 这道题要注意的是`partition`需要严格分`<1` `=1` `>1`三种，因此需要三路排序
+2. 使用三个索引 `lt`, `i`, `gt`，使得`[l,lt] <1 (lt+1,i)=1 [gt,r)>1`.
 
 ### 387.最小差
 
@@ -3575,6 +3575,13 @@ public:
 
 ### [动态规划](http://www.lintcode.com/problem/?tag=dynamic-programming)
 
+1. 坐标型动态规划
+2. 序列型动态规划
+3. 双序型动态规划
+4. 划分型动态规划
+5. 背包型动态规划
+6. 区间型动态规划
+
 ### [109. 数字三角形](http://www.lintcode.com/zh-cn/problem/triangle/)
 
 #### 题目
@@ -3600,6 +3607,10 @@ public:
 ```
 
 从顶到底部的最小路径和为`11 ( 2 + 3 + 5 + 1 = 11)`。
+
+#### 标签
+
+坐标型动态规划
 
 #### 挑战
 
@@ -3752,6 +3763,59 @@ public:
             minsum = min(minsum, f[n-1][i]);
         }
         return minsum;
+    }
+};
+```
+
+### [110. 最小路径和](http://www.lintcode.com/zh-cn/problem/minimum-path-sum/)
+
+#### 题目
+
+给定一个只含非负整数的m*n网格，找到一条从左上角到右下角的可以使数字和最小的路径。
+
+```C
+注意事项
+你在同一时间只能向下或者向右移动一步
+
+```
+
+#### 样例
+
+#### 挑战
+
+#### 标签
+
+坐标型动态规划
+
+#### 分析
+
+状态方程：  
+`dp[x][y]=min(dp[x-1][y],dp[x][y-1])+grid[x][y]`
+思考如果上下左右可以走，还可以使用动态规划么？
+
+#### 代码
+ 
+```c++
+class Solution {
+public:
+    /**
+     * @param grid: a list of lists of integers.
+     * @return: An integer, minimizes the sum of all numbers along its path
+     */
+    int minPathSum(vector<vector<int> > &grid) {
+        // write your code here
+        
+        int r = grid.size();
+        int c = grid[0].size();
+        for(int i = 0;i < r;i++){
+            for (int j = 0;j < c;j++){
+                if(i == 0 && j == 0) continue;
+                int left = i-1 < 0 ? INT_MAX : grid[i-1][j];
+                int up = j-1 < 0 ? INT_MAX : grid[i][j-1];
+                grid[i][j] += min(left,up);
+            }
+        }
+        return grid[r-1][c-1];
     }
 };
 ```
