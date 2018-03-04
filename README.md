@@ -3790,7 +3790,7 @@ public:
 #### 分析
 
 状态方程：  
-`dp[x][y]=min(dp[x-1][y],dp[x][y-1])+grid[x][y]`
+`dp[x][y]=min(dp[x-1][y],dp[x][y-1])+grid[x][y]`  
 思考如果上下左右可以走，还可以使用动态规划么？
 
 #### 代码
@@ -3804,7 +3804,7 @@ public:
      */
     int minPathSum(vector<vector<int> > &grid) {
         // write your code here
-        
+        // 也可以初始化一个新的dp[][]，然后初始化第一行第一列
         int r = grid.size();
         int c = grid[0].size();
         for(int i = 0;i < r;i++){
@@ -3818,4 +3818,66 @@ public:
         return grid[r-1][c-1];
     }
 };
+```
+
+### [114. 不同的路径](http://www.lintcode.com/zh-cn/problem/minimum-path-sum/)
+
+#### 题目
+
+有一个机器人的位于一个 `m × n` 个网格左上角。  
+机器人每一时刻只能向下或者向右移动一步。机器人试图达到网格的右下角。  
+问有多少条不同的路径？
+
+```C
+注意事项
+n和m均不超过100
+
+```
+
+#### 样例
+
+给出 `m = 3` 和 `n = 3`, 返回 `6`.
+给出 `m = 4` 和 `n = 5`, 返回 `35`.
+
+#### 挑战
+
+#### 标签
+
+坐标型动态规划
+
+#### 分析
+
+状态方程：  
+`dp[x][y]=dp[x-1][y]+dp[x][y-1]`  
+思考如果上下左右可以走，还可以使用动态规划么？
+
+#### 代码
+ 
+```c++
+class Solution {
+class Solution {
+public:
+    /**
+     * @param n, m: positive integer (1 <= n ,m <= 100)
+     * @return an integer
+     */
+    int uniquePaths(int m, int n) {
+        // wirte your code here
+        int dp[100][100];
+        
+        dp[0][0]=1;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(i > 0){
+                    dp[i][j] += dp[i-1][j];
+                }
+                if(j > 0){
+                    dp[i][j] += dp[i][j-1];
+                }
+            }
+        }
+        return dp[m-1][n-1];
+    }
+};
+
 ```
