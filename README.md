@@ -1377,21 +1377,6 @@ private:
 1. 二分法，思路和[159. 寻找旋转排序数组中的最小值](http://www.lintcode.com/zh-cn/problem/find-minimum-in-rotated-sorted-array/)是一样的
 2. 唯一的不同在31行代码处，加入了去重。
 
-### [76. 最长上升子序列](http://www.lintcode.com/zh-cn/problem/longest-increasing-subsequence/)
-
-#### 题目：
-
-给定一个整数序列，找到最长上升子序列（LIS），返回LIS的长度。
-
-#### 说明：
-
-最长上升子序列的定义：最长上升子序列问题是在一个无序的给定序列中找到一个尽可能长的由低到高排列的子序列，这种子序列不一定是连续的或者唯一的。[WIKI百科](https://en.wikipedia.org/wiki/Longest_increasing_subsequence)
-
-#### 分析：
-
-1. 动态规划。
-2. 二分法，实际上就是在循环的过程中我们用到了二分法。这种方法有点类似于贪心，就是我们每次选一个数，让这个数刚刚数组的前一个数，这样可以为后面的数留出更多选择余地，如何选择这个数？就是[60.搜索插入位置](http://www.lintcode.com/zh-cn/problem/search-insert-position/)的思路，我们搜索插入位置，然后将这个位置的数替换掉。
-
 ### [617. 最大平均值子数组](http://www.lintcode.com/zh-cn/problem/maximum-average-subarray/)
 
 #### 题目
@@ -4107,6 +4092,88 @@ public:
             }
         }
         return dp[size-1];
+    }
+};
+```
+
+### [76. 最长上升子序列](http://www.lintcode.com/zh-cn/problem/longest-increasing-subsequence/)
+
+#### 题目
+
+给定一个整数序列，找到最长上升子序列（LIS），返回LIS的长度。
+
+#### 说明
+
+最长上升子序列的定义：最长上升子序列问题是在一个无序的给定序列中找到一个尽可能长的由低到高排列的子序列，这种子序列不一定是连续的或者唯一的。[WIKI百科](https://en.wikipedia.org/wiki/Longest_increasing_subsequence)
+
+#### 样例
+
+给出 `[5,4,1,2,3]`，LIS 是 `[1,2,3]`，返回 `3`
+给出 `[4,2,4,5,3,7]`，LIS 是 `[2,4,5,7]`，返回 `4`
+
+#### 分析
+
+1. 动态规划。
+2. 二分法，实际上就是在循环的过程中我们用到了二分法。这种方法有点类似于贪心，就是我们每次选一个数，让这个数刚刚数组的前一个数，这样可以为后面的数留出更多选择余地，如何选择这个数？就是[60.搜索插入位置](http://www.lintcode.com/zh-cn/problem/search-insert-position/)的思路，我们搜索插入位置，然后将这个位置的数替换掉。
+
+#### 代码
+
+```c++
+class Solution {
+public:
+    /*
+     * @param nums: An integer array
+     * @return: The length of LIS (longest increasing subsequence)
+     */
+    int longestIncreasingSubsequence(vector<int> &nums) {
+        // write your code here
+        
+        // binarySearch
+        // if(nums.size() == 0) return 0;
+        // int len = 1;
+        // vector<int> lis(nums.size());
+        // lis[0] = nums[0];
+        // for(int i = 1; i < nums.size(); i++){
+        //     if(nums[i] > lis[len - 1]){
+        //         lis[len++] = nums[i];
+        //     }
+        //     else{
+        //         // 这里要保证当前这个位置的数尽可能小
+        //         // 这样后面才能有更多的选择“余地”
+        //         int pos = binarySearch(lis, 0, len, nums[i]);
+        //         lis[pos] = nums[i];
+        //     }
+        // }
+        // return len;
+        
+        //dp
+        if(nums.size() == 0) return 0;
+        int dp[nums.size()];
+        for(int i = 0; i < nums.size(); i++)
+            dp[i] = 1;
+        
+        int lci = 1;
+        for(int i = 0; i < nums.size(); i++){
+            for(int j = 0; j < i; j++){
+                if(nums[i] > nums[j])
+                    dp[i] = max(dp[i], dp[j] + 1);
+            }
+            lci = max(lci, dp[i]);
+        }
+        return lci;
+    }
+private:  
+    // for binarySearch
+    // nums[start, end)
+    int binarySearch(const vector<int> &nums, int start, int end, int target){
+        while(start < end){
+            int mid = start + (end - start) / 2;
+            if(target <= nums[mid])
+                end = mid;
+            else
+                start = mid + 1;
+        }
+        return start;
     }
 };
 ```
