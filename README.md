@@ -4177,3 +4177,118 @@ private:
     }
 };
 ```
+
+### [107. 单词拆分 I](http://www.lintcode.com/zh-cn/problem/word-break/)
+
+#### 题目
+
+给出一个字符串s和一个词典，判断字符串s是否可以被空格切分成一个或多个出现在字典中的单词。
+
+#### 说明
+
+#### 样例
+
+给出  
+`s = "lintcode"`  
+`dict = ["lint","code"]`  
+返回 `true` 因为`"lintcode"`可以被空格切分成`"lint code"`
+
+#### 分析
+
+1. 假设在第i个字母，此时判断是否能从这个字母前面切断，那我们就要从0-i依次寻找可以切断并且j-i这个子字符串也在字典中，这样就可以切断，否则就不可以。
+
+#### 代码
+
+```c++
+class Solution {
+public:
+    /*
+     * @param s: A string
+     * @param dict: A dictionary of words dict
+     * @return: A boolean
+     */
+    bool wordBreak(string &s, unordered_set<string> &dict) {
+        // write your code here
+        
+        // 优化前
+        // 这样时间复杂度是O(n3),会LTE
+        // 考虑到字典中最大单词长度，从后向前寻找。
+        // 当切分的单词长度大于最大长度时，中断循环
+        
+        int length = s.size(), maxlength = 0;
+        for(auto iter = dict.begin(); iter != dict.end(); iter++){
+            maxlength = max<int>(maxlength, (*iter).size());
+        }
+        //dp[i] 表示前i个字符是否可以分割
+        bool dp[length+1];
+        dp[0] = true; //空字符串必然可以切分
+        for(int i = 1; i <= s.size(); i++){
+            dp[i] = false;
+            for(int j = i; j >= 1; j--){
+                int subsize = i - j + 1;
+                if(subsize > maxlength) break;
+                
+                string substr = s.substr(j-1, subsize);
+                if(dp[j-1] && dict.find(substr) != dict.end()){
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return dp[length];
+    }
+};
+```
+
+### [108. 分割回文串 II](http://www.lintcode.com/zh-cn/problem/palindrome-partitioning-ii/)
+
+#### 题目
+
+给定一个字符串s，将s分割成一些子串，使每个子串都是回文。  
+返回s符合要求的的最少分割次数。
+
+#### 说明
+
+#### 样例
+
+比如，给出字符串`s = "aab"`，  
+返回 1， 因为进行一次分割可以将字符串s分割成`["aa","b"]`这样两个回文子串
+
+#### 分析
+
+和[107. 单词拆分 I](http://www.lintcode.com/zh-cn/problem/word-break/)一样的思路，这里只是将字典换为了是否为回文串，另外要求的是最小的切分数，所以这里的dp[i]的含义就是前i个字符串最少切分数，之所以让`dp[0]=-1`是因为如果整个字符串刚好是个回文串，那么dp[i]+1刚好是0
+
+#### 代码
+
+```c++
+class Solution {
+public:
+    /**
+     * @param s: A string
+     * @return: An integer
+     */
+    int minCut(string &s) {
+        // write your code here
+        int length = s.size();
+        int dp[length+1]{};
+        dp[0] = -1;
+        for(int i = 1; i <= s.size(); i++){
+            int __min = i-1;
+            for(int j = 1; j <= i; j++){
+                bool can = ispalinrome(s, j-1, i-1);
+                if(can)
+                    __min = min(__min, dp[j-1]+1);
+            }
+            dp[i] = __min;
+        }
+        return dp[length];
+    }
+private:
+    bool ispalinrome(string &s, int start, int end){
+        while(start < end){
+            if(s[start++] != s[end--]) return false;
+        }
+        return true;
+    }
+};
+```
